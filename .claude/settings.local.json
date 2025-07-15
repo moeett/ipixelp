@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp:*)",
+      "Bash(find:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(ls:*)",
+      "Bash(python3:*)",
+      "Bash(chmod:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": []
+  }
+}

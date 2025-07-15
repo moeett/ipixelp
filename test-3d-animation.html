@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Text Blue Animation Test</title>
+    <script type="module" src="https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spline-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .fallback-3d {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            perspective: 1000px;
+        }
+
+        .text-3d {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #00bfff;
+            text-shadow: 
+                0 0 20px #00bfff,
+                0 0 40px #00bfff,
+                0 0 60px #00bfff,
+                0 0 80px #00bfff;
+            transform: rotateX(20deg) rotateY(20deg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotateX(20deg) rotateY(20deg) translateY(0px); }
+            50% { transform: rotateX(20deg) rotateY(20deg) translateY(-20px); }
+        }
+
+        canvas {
+            width: 100vw !important;
+            height: 100vh !important;
+            display: block;
+        }
+
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .controls button {
+            background: #00bfff;
+            border: none;
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .controls button:hover {
+            background: #0099cc;
+        }
+
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+        }
+
+        #spline-canvas {
+            width: 100vw !important;
+            height: 100vh !important;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <h4>3D Animation Test</h4>
+            <button onclick="toggleAnimation()">Toggle Animation</button>
+            <button onclick="resetView()">Reset View</button>
+        </div>
+
+        <div class="spline-container">
+            <!-- Canvas for Spline 3D -->
+            <canvas id="spline-canvas"></canvas>
+            
+            <!-- Fallback 3D CSS animation -->
+            <div class="fallback-3d" id="fallback" style="display: none;">
+                <div class="text-3d">
+                    IPIXELP
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <strong>3D Blue Text Animation</strong><br>
+            Interactive 3D text with blue theme<br>
+            Status: <span id="status">Loading...</span>
+        </div>
+    </div>
+
+    <script>
+        let animationEnabled = true;
+        let splineApp;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async function() {
+            const canvas = document.getElementById('spline-canvas');
+            const fallback = document.getElementById('fallback');
+            
+            try {
+                // Try to load Spline app
+                const { Application } = await import('https://unpkg.com/@splinetool/runtime@1.9.98/build/runtime.js');
+                
+                splineApp = new Application(canvas);
+                
+                // Try to load a sample blue text scene
+                try {
+                    await splineApp.load('https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode');
+                    document.getElementById('status').textContent = 'Spline 3D Loaded';
+                    canvas.style.display = 'block';
+                    fallback.style.display = 'none';
+                } catch (sceneError) {
+                    console.warn('Failed to load Spline scene:', sceneError);
+                    showFallback();
+                }
+                
+            } catch (error) {
+                console.warn('Failed to load Spline runtime:', error);
+                showFallback();
+            }
+
+            // Timeout fallback
+            setTimeout(() => {
+                if (document.getElementById('status').textContent === 'Loading...') {
+                    showFallback();
+                }
+            }, 5000);
+        });
+
+        function showFallback() {
+            document.getElementById('status').textContent = 'Using CSS 3D Fallback';
+            document.getElementById('fallback').style.display = 'flex';
+            document.getElementById('spline-canvas').style.display = 'none';
+        }
+
+        function toggleAnimation() {
+            animationEnabled = !animationEnabled;
+            const text3d = document.querySelector('.text-3d');
+            if (text3d) {
+                text3d.style.animationPlayState = animationEnabled ? 'running' : 'paused';
+            }
+        }
+
+        function resetView() {
+            if (splineApp) {
+                try {
+                    // Reset camera position if possible
+                    splineApp.setZoom(1);
+                } catch (e) {
+                    console.log('Spline reset not available');
+                }
+            }
+        }
+
+        // Handle mouse interaction for CSS fallback
+        document.addEventListener('mousemove', function(e) {
+            if (document.getElementById('fallback').style.display === 'flex') {
+                const text3d = document.querySelector('.text-3d');
+                if (text3d) {
+                    const x = (e.clientX / window.innerWidth) * 50 - 25;
+                    const y = (e.clientY / window.innerHeight) * 50 - 25;
+                    text3d.style.transform = `rotateX(${20 + y}deg) rotateY(${20 + x}deg)`;
+                }
+            }
+        });
+
+        // Handle resize
+        window.addEventListener('resize', function() {
+            if (splineApp) {
+                splineApp.setSize(window.innerWidth, window.innerHeight);
+            }
+        });
+    </script>
+</body>
+</html>

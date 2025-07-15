@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Text Blue Animation - IPIXELP</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            color: #00bfff;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 191, 255, 0.3);
+        }
+
+        .controls h3 {
+            margin-bottom: 15px;
+            color: #00bfff;
+            text-shadow: 0 0 10px #00bfff;
+        }
+
+        .controls button {
+            background: linear-gradient(45deg, #00bfff, #0099cc);
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
+        }
+
+        .controls button:hover {
+            background: linear-gradient(45deg, #0099cc, #007bb5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 191, 255, 0.5);
+        }
+
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            color: #00bfff;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 191, 255, 0.3);
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #00bfff;
+            font-size: 1.5rem;
+            z-index: 50;
+            text-align: center;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 191, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00bfff;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .glow {
+            text-shadow: 0 0 20px #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <div class="glow">Loading 3D Text...</div>
+        </div>
+
+        <div class="controls">
+            <h3>3D Text Controls</h3>
+            <button onclick="toggleAnimation()">Toggle Rotation</button>
+            <button onclick="toggleGlow()">Toggle Glow</button>
+            <button onclick="resetView()">Reset View</button>
+            <button onclick="changeColor()">Change Color</button>
+        </div>
+
+        <div class="info">
+            <strong>🎨 3D Text Animation</strong><br>
+            Interactive 3D "IPIXELP" text<br>
+            <span class="glow">Status: <span id="status">Initializing...</span></span>
+        </div>
+    </div>
+
+    <script>
+        let scene, camera, renderer, textMesh, textGroup;
+        let animationEnabled = true;
+        let glowEnabled = true;
+        let colorIndex = 0;
+        let mouseX = 0, mouseY = 0;
+        let targetRotationX = 0, targetRotationY = 0;
+
+        const colors = [
+            0x00bfff, // Blue
+            0x00ff88, // Green
+            0xff6b00, // Orange
+            0xff0080, // Pink
+            0x8000ff, // Purple
+        ];
+
+        function init() {
+            // Scene setup
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x000000, 10, 50);
+
+            // Camera setup
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 15);
+
+            // Renderer setup
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.getElementById('container').appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0x00bfff, 1);
+            directionalLight.position.set(5, 5, 5);
+            directionalLight.castShadow = true;
+            scene.add(directionalLight);
+
+            const pointLight1 = new THREE.PointLight(0x00bfff, 1, 100);
+            pointLight1.position.set(-10, 10, 10);
+            scene.add(pointLight1);
+
+            const pointLight2 = new THREE.PointLight(0x0080ff, 0.8, 100);
+            pointLight2.position.set(10, -10, 10);
+            scene.add(pointLight2);
+
+            // Create text group
+            textGroup = new THREE.Group();
+            scene.add(textGroup);
+
+            // Load font and create text
+            const loader = new THREE.FontLoader();
+            loader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', function (font) {
+                createText(font);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('status').textContent = '3D Text Loaded';
+            });
+
+            // Mouse interaction
+            document.addEventListener('mousemove', onMouseMove, false);
+            window.addEventListener('resize', onWindowResize, false);
+
+            // Start animation
+            animate();
+        }
+
+        function createText(font) {
+            const textGeometry = new THREE.TextGeometry('IPIXELP', {
+                font: font,
+                size: 3,
+                height: 1,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.3,
+                bevelSize: 0.1,
+                bevelSegments: 5
+            });
+
+            // Center the text
+            textGeometry.computeBoundingBox();
+            const centerOffsetX = -0.5 * (textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x);
+            const centerOffsetY = -0.5 * (textGeometry.boundingBox.max.y - textGeometry.boundingBox.min.y);
+            textGeometry.translate(centerOffsetX, centerOffsetY, 0);
+
+            // Create materials
+            const textMaterial = new THREE.MeshPhongMaterial({
+                color: 0x00bfff,
+                shininess: 100,
+                specular: 0x00bfff,
+                emissive: 0x001122,
+                transparent: true,
+                opacity: 0.95
+            });
+
+            // Create text mesh
+            textMesh = new THREE.Mesh(textGeometry, textMaterial);
+            textMesh.castShadow = true;
+            textMesh.receiveShadow = true;
+            textGroup.add(textMesh);
+
+            // Add glow effect
+            if (glowEnabled) {
+                addGlowEffect();
+            }
+
+            // Add particles
+            addParticles();
+        }
+
+        function addGlowEffect() {
+            if (!textMesh) return;
+
+            // Create glow material
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00bfff,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.BackSide
+            });
+
+            // Create glow mesh (slightly larger)
+            const glowGeometry = textMesh.geometry.clone();
+            glowGeometry.scale(1.05, 1.05, 1.05);
+            const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+            textGroup.add(glowMesh);
+
+            // Add outer glow
+            const outerGlowMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00bfff,
+                transparent: true,
+                opacity: 0.1,
+                side: THREE.BackSide
+            });
+
+            const outerGlowGeometry = textMesh.geometry.clone();
+            outerGlowGeometry.scale(1.1, 1.1, 1.1);
+            const outerGlowMesh = new THREE.Mesh(outerGlowGeometry, outerGlowMaterial);
+            textGroup.add(outerGlowMesh);
+        }
+
+        function addParticles() {
+            const particleCount = 100;
+            const particles = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 50;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 50;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
+
+                colors[i * 3] = 0;
+                colors[i * 3 + 1] = 0.7 + Math.random() * 0.3;
+                colors[i * 3 + 2] = 1;
+            }
+
+            particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.5,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particleSystem = new THREE.Points(particles, particleMaterial);
+            scene.add(particleSystem);
+        }
+
+        function onMouseMove(event) {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            
+            targetRotationX = mouseY * 0.3;
+            targetRotationY = mouseX * 0.3;
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (textGroup && animationEnabled) {
+                textGroup.rotation.x += (targetRotationX - textGroup.rotation.x) * 0.05;
+                textGroup.rotation.y += (targetRotationY - textGroup.rotation.y) * 0.05;
+                textGroup.rotation.z += 0.005;
+            }
+
+            // Animate lights
+            const time = Date.now() * 0.0005;
+            scene.children.forEach(child => {
+                if (child.type === 'PointLight') {
+                    child.intensity = 0.5 + Math.sin(time * 2) * 0.3;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Control functions
+        function toggleAnimation() {
+            animationEnabled = !animationEnabled;
+        }
+
+        function toggleGlow() {
+            glowEnabled = !glowEnabled;
+            if (textGroup) {
+                // Remove existing glow effects
+                const glowMeshes = textGroup.children.filter(child => child !== textMesh);
+                glowMeshes.forEach(mesh => textGroup.remove(mesh));
+                
+                if (glowEnabled) {
+                    addGlowEffect();
+                }
+            }
+        }
+
+        function resetView() {
+            if (textGroup) {
+                textGroup.rotation.set(0, 0, 0);
+                camera.position.set(0, 0, 15);
+            }
+            targetRotationX = 0;
+            targetRotationY = 0;
+        }
+
+        function changeColor() {
+            colorIndex = (colorIndex + 1) % colors.length;
+            const newColor = colors[colorIndex];
+            
+            if (textMesh) {
+                textMesh.material.color.setHex(newColor);
+                textMesh.material.emissive.setHex(newColor * 0.1);
+                textMesh.material.specular.setHex(newColor);
+            }
+
+            // Update lights
+            scene.children.forEach(child => {
+                if (child.type === 'DirectionalLight' || child.type === 'PointLight') {
+                    child.color.setHex(newColor);
+                }
+            });
+        }
+
+        // Initialize the scene
+        init();
+    </script>
+</body>
+</html>
