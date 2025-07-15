@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Placeholder Generator</title>
+</head>
+<body>
+    <script>
+        // Generate placeholder images using canvas
+        function generatePlaceholder(width, height, text, filename) {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, '#1a1a1a');
+            gradient.addColorStop(1, '#2a2a2a');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            // Text
+            ctx.fillStyle = '#00d4ff';
+            ctx.font = 'bold 24px Inter, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, width/2, height/2);
+            
+            // Convert to blob and download
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        // Generate portfolio images
+        const portfolioImages = [
+            { name: 'islamic-relief.jpg', text: 'Islamic Relief' },
+            { name: 'silatech.jpg', text: 'Silatech' },
+            { name: 'blackmagic.jpg', text: 'Blackmagic 4K' },
+            { name: 'makeup.jpg', text: 'Makeup Show' },
+            { name: 'bokie.jpg', text: 'Bokie Ad' },
+            { name: 'serie-z.jpg', text: 'Serie Z' }
+        ];
+        
+        // Generate team images
+        const teamImages = [
+            { name: 'khalif.jpg', text: 'Khalif' },
+            { name: 'karim.jpg', text: 'Karim' },
+            { name: 'souhila.jpg', text: 'Souhila' },
+            { name: 'fedi.jpg', text: 'Fedi' },
+            { name: 'marwen.jpg', text: 'Marwen' }
+        ];
+        
+        // Generate all images
+        portfolioImages.forEach(img => {
+            generatePlaceholder(400, 250, img.text, `portfolio/${img.name}`);
+        });
+        
+        teamImages.forEach(img => {
+            generatePlaceholder(300, 300, img.text, `team/${img.name}`);
+        });
+        
+        console.log('Placeholder images generated!');
+    </script>
+</body>
+</html>
