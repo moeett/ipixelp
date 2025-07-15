@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.29/build/spline-viewer.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
   </head>
   <body>
     <div id="app">
@@ -45,7 +45,26 @@
       <!-- Hero Section with 3D Animation -->
       <section id="home" class="hero">
         <div class="hero-3d-background">
-          <spline-viewer url="https://prod.spline.design/tjoUGLpoEmflMo5x/scene.splinecode"></spline-viewer>
+          <!-- Primary Spline viewer -->
+          <spline-viewer
+            url="https://prod.spline.design/tjoUGLpoEmflMo5x/scene.splinecode"
+            loading-anim-type="spinner-big-dark">
+          </spline-viewer>
+
+          <!-- Fallback iframe embed -->
+          <iframe
+            src="https://my.spline.design/tjoUGLpoEmflMo5x"
+            frameborder="0"
+            width="100%"
+            height="100%"
+            style="display: none;"
+            class="spline-iframe-fallback">
+          </iframe>
+
+          <!-- Final fallback gradient -->
+          <div class="hero-fallback" style="display: none;">
+            <div class="animated-gradient"></div>
+          </div>
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -448,5 +467,55 @@
       </footer>
     </div>
     <script type="module" src="/src/main.js"></script>
+    <script>
+      // Handle Spline viewer errors with multiple fallbacks
+      document.addEventListener('DOMContentLoaded', function() {
+        const splineViewer = document.querySelector('spline-viewer');
+        const iframeFallback = document.querySelector('.spline-iframe-fallback');
+        const gradientFallback = document.querySelector('.hero-fallback');
+
+        let hasLoaded = false;
+
+        // Try iframe fallback after 8 seconds
+        const iframeTimer = setTimeout(() => {
+          if (!hasLoaded) {
+            console.log('Spline viewer taking too long, trying iframe fallback');
+            splineViewer.style.display = 'none';
+            iframeFallback.style.display = 'block';
+
+            // If iframe also fails, show gradient after another 5 seconds
+            setTimeout(() => {
+              if (!hasLoaded) {
+                console.log('Iframe also failed, showing gradient fallback');
+                iframeFallback.style.display = 'none';
+                gradientFallback.style.display = 'block';
+              }
+            }, 5000);
+          }
+        }, 8000);
+
+        // Listen for successful load
+        splineViewer.addEventListener('load', () => {
+          hasLoaded = true;
+          clearTimeout(iframeTimer);
+          console.log('Spline viewer loaded successfully');
+        });
+
+        // Handle immediate errors
+        splineViewer.addEventListener('error', () => {
+          hasLoaded = true;
+          clearTimeout(iframeTimer);
+          console.log('Spline viewer error, trying iframe fallback');
+          splineViewer.style.display = 'none';
+          iframeFallback.style.display = 'block';
+        });
+
+        // Handle iframe load
+        iframeFallback.addEventListener('load', () => {
+          hasLoaded = true;
+          console.log('Iframe fallback loaded successfully');
+        });
+      });
+    </script>
   </body>
 </html>
