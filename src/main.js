@@ -91,6 +91,9 @@ class IPPixelWebsite {
 
       // Switch about section theme
       this.switchAboutTheme(newTheme);
+
+      // Switch stats section theme
+      this.switchStatsTheme(newTheme);
     });
   }
 
@@ -186,6 +189,7 @@ class IPPixelWebsite {
     // Initialize theme based on current setting
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
     this.switchAboutTheme(currentTheme);
+    this.switchStatsTheme(currentTheme);
 
     // Setup text animation
     this.setupAboutTextAnimation();
@@ -206,6 +210,25 @@ class IPPixelWebsite {
         lightVersion.style.display = 'none';
         darkVersion.style.display = 'block';
         console.log('Showing dark version'); // Debug log
+      }
+    }
+  }
+
+  switchStatsTheme(theme) {
+    const lightVersion = document.querySelector('.stats-light');
+    const darkVersion = document.querySelector('.stats-dark');
+
+    console.log('Switching stats theme to:', theme); // Debug log
+
+    if (lightVersion && darkVersion) {
+      if (theme === 'light') {
+        lightVersion.style.display = 'block';
+        darkVersion.style.display = 'none';
+        console.log('Showing stats light version'); // Debug log
+      } else {
+        lightVersion.style.display = 'none';
+        darkVersion.style.display = 'block';
+        console.log('Showing stats dark version'); // Debug log
       }
     }
   }

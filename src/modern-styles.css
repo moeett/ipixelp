@@ -494,12 +494,13 @@ section {
 }
 
 .section-title {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
   color: var(--text-primary);
   letter-spacing: -0.02em;
   line-height: 1.2;
+  text-transform: uppercase;
 }
 
 .section-subtitle {
@@ -1039,12 +1040,34 @@ section {
   background: var(--bg-primary);
   color: var(--text-primary);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-brutalist::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(45deg, rgba(191, 15, 15, 0.03) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(191, 15, 15, 0.03) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(191, 15, 15, 0.03) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(191, 15, 15, 0.03) 75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Portfolio Header */
 .portfolio-header-brutalist {
   text-align: center;
   margin-bottom: 4rem;
+  position: relative;
+  z-index: 1;
 }
 
 .portfolio-badge {
@@ -1083,6 +1106,8 @@ section {
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-bottom: 4rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* Portfolio Cards */
@@ -1143,6 +1168,8 @@ section {
 /* Portfolio CTA */
 .portfolio-cta-brutalist {
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .btn-brutalist {
@@ -1992,7 +2019,7 @@ section {
   }
 
   .section-title {
-    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    font-size: clamp(1.5rem, 5vw, 2rem);
   }
 
   .section-subtitle {
@@ -2005,5 +2032,361 @@ section {
 
   .hero-description {
     font-size: 1.1rem;
+  }
+}
+
+/* ===== STATS SECTION - PROFESSIONAL BRUTALIST DESIGN ===== */
+.stats-brutalist {
+  padding: var(--spacing-3xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-brutalist::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="brutalist-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(191,15,15,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23brutalist-grid)"/></svg>');
+  pointer-events: none;
+}
+
+/* Light Theme Styles */
+.stats-light {
+  background: transparent;
+  color: #1a1a1a;
+}
+
+.stats-light::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(191,15,15,0.02) 50%, transparent 70%);
+  pointer-events: none;
+}
+
+.stats-light .stats-title {
+  color: #1a1a1a;
+  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stats-light .stats-subtitle {
+  color: #495057;
+}
+
+.stats-light .stat-card-brutalist {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  border: 3px solid var(--accent-primary);
+  color: #1a1a1a;
+  box-shadow:
+    12px 12px 0px var(--accent-primary),
+    12px 12px 0px 3px rgba(191,15,15,0.1),
+    0 20px 40px rgba(0,0,0,0.1);
+}
+
+.stats-light .stat-card-brutalist:hover {
+  box-shadow:
+    16px 16px 0px var(--accent-primary),
+    16px 16px 0px 3px rgba(191,15,15,0.15),
+    0 25px 50px rgba(0,0,0,0.15);
+}
+
+.stats-light .stat-number {
+  color: var(--accent-primary);
+  text-shadow: none;
+}
+
+.stats-light .stat-plus,
+.stats-light .stat-percent {
+  color: var(--accent-primary);
+}
+
+.stats-light .stat-label {
+  color: #495057;
+}
+
+.stats-light .stat-corner {
+  background: linear-gradient(135deg, var(--accent-primary), #e01515);
+}
+
+.stats-light .stat-decoration {
+  background: rgba(191,15,15,0.1);
+}
+
+/* Dark Theme Styles */
+.stats-dark {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.stats-dark::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(191,15,15,0.05) 50%, transparent 70%);
+  pointer-events: none;
+}
+
+.stats-dark .stats-title {
+  color: var(--text-primary);
+  background: linear-gradient(135deg, #ffffff 0%, #b3b3b3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stats-dark .stats-subtitle {
+  color: var(--text-secondary);
+}
+
+.stats-dark .stat-card-brutalist {
+  background: linear-gradient(145deg, var(--bg-secondary) 0%, #151515 100%);
+  border: 3px solid var(--accent-primary);
+  color: var(--text-primary);
+  box-shadow:
+    12px 12px 0px var(--accent-primary),
+    12px 12px 0px 3px rgba(191,15,15,0.2),
+    0 20px 40px rgba(0,0,0,0.3);
+}
+
+.stats-dark .stat-card-brutalist:hover {
+  box-shadow:
+    16px 16px 0px var(--accent-primary),
+    16px 16px 0px 3px rgba(191,15,15,0.25),
+    0 25px 50px rgba(0,0,0,0.4);
+}
+
+.stats-dark .stat-number {
+  color: var(--accent-primary);
+  text-shadow: none;
+}
+
+.stats-dark .stat-plus,
+.stats-dark .stat-percent {
+  color: var(--accent-primary);
+}
+
+.stats-dark .stat-label {
+  color: var(--text-primary);
+}
+
+.stats-dark .stat-corner {
+  background: linear-gradient(135deg, var(--accent-primary), #e01515);
+}
+
+.stats-dark .stat-decoration {
+  background: rgba(191,15,15,0.15);
+}
+
+/* Common Styles */
+.stats-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.stats-title {
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  position: relative;
+}
+
+.stats-subtitle {
+  font-size: 1.3rem;
+  font-weight: 400;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg);
+  line-height: 1.5;
+}
+
+.stats-grid-brutalist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-2xl);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) 0;
+}
+
+.stat-card-brutalist {
+  padding: var(--spacing-xl);
+  position: relative;
+  transform: rotate(-1.5deg);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.stat-card-brutalist:nth-child(2) {
+  transform: rotate(0.8deg);
+}
+
+.stat-card-brutalist:nth-child(3) {
+  transform: rotate(-0.5deg);
+}
+
+.stat-card-brutalist:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.stats-badge {
+  display: inline-block;
+  background: var(--accent-primary);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+}
+
+.stats-divider {
+  width: 80px;
+  height: 4px;
+  background: var(--accent-primary);
+  margin: var(--spacing-md) auto 0;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+  position: relative;
+  z-index: 2;
+}
+
+.stat-icon i {
+  color: white;
+}
+
+.stat-content {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.stat-number-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  margin-bottom: var(--spacing-sm);
+}
+
+.stat-number {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  display: inline-block;
+  position: relative;
+}
+
+.stat-plus,
+.stat-percent {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 900;
+  display: inline-block;
+  margin-left: 0.2rem;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.2;
+}
+
+.stat-description {
+  font-size: 0.9rem;
+  font-weight: 400;
+  opacity: 0.7;
+  line-height: 1.3;
+  margin-top: var(--spacing-xs);
+}
+
+.stat-decoration {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  opacity: 0.1;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  z-index: 1;
+  transition: all var(--transition-normal);
+}
+
+.stat-card-brutalist:hover .stat-decoration {
+  transform: rotate(45deg) scale(1.1);
+  opacity: 0.15;
+}
+
+/* Animation for counting numbers */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-number.counting {
+  animation: countUp 0.5s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stats-grid-brutalist {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .stat-card-brutalist {
+    transform: rotate(0deg);
+    min-height: 160px;
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .stat-card-brutalist:hover {
+    transform: scale(1.02);
+  }
+
+  .stats-title {
+    letter-spacing: 1px;
   }
 }
