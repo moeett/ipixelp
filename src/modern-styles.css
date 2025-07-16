@@ -189,6 +189,60 @@ a:hover {
   box-shadow: 0 8px 25px rgba(191, 15, 15, 0.3);
 }
 
+/* Logo Styles */
+.logo-svg {
+  transition: all var(--transition-normal);
+}
+
+.logo-icon {
+  fill: var(--accent-primary);
+  transition: fill var(--transition-normal);
+}
+
+.logo-text-primary {
+  fill: var(--text-primary);
+  transition: fill var(--transition-normal);
+}
+
+.logo-text-secondary {
+  fill: var(--accent-primary);
+  transition: fill var(--transition-normal);
+}
+
+/* Dark theme logo colors (red and white) */
+:root .logo-icon {
+  fill: var(--accent-primary); /* Red */
+}
+
+:root .logo-text-primary {
+  fill: var(--text-primary); /* White */
+}
+
+:root .logo-text-secondary {
+  fill: var(--accent-primary); /* Red */
+}
+
+/* Light theme logo colors (red and black) */
+[data-theme="light"] .logo-icon {
+  fill: var(--accent-primary); /* Red */
+}
+
+[data-theme="light"] .logo-text-primary {
+  fill: var(--text-primary); /* Black */
+}
+
+[data-theme="light"] .logo-text-secondary {
+  fill: var(--accent-primary); /* Red */
+}
+
+.nav-logo:hover .logo-svg {
+  transform: scale(1.05);
+}
+
+.nav-logo:hover .logo-icon {
+  fill: var(--accent-secondary);
+}
+
 /* Navigation */
 .navbar {
   position: fixed;
