@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="International Pixel Production - Société de production audiovisuelle en Tunisie. Services de production vidéo, film corporate, motion design depuis 2013." />
     <title>International Pixel Production - Agence Production Audiovisuelle Tunisie</title>
+    <!-- Fix favicon 404 error -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='24' font-size='24'>🎨</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.31/build/spline-viewer.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
     <!-- Lucide icons will be loaded dynamically only when needed -->
   </head>
   <body>
@@ -61,17 +63,7 @@
       <!-- Hero Section with 3D Animation -->
       <section id="home" class="hero">
         <div class="spline-container">
-          <!-- Desktop Spline Scene -->
-          <spline-viewer
-            class="hero-desktop"
-            url="https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode">
-          </spline-viewer>
-
-          <!-- Mobile Spline Scene -->
-          <spline-viewer
-            class="hero-mobile"
-            url="https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode">
-          </spline-viewer>
+          <!-- Spline viewer will be created dynamically with proper error handling -->
         </div>
       </section>
 
@@ -616,52 +608,148 @@
     </div>
     <script type="module" src="/src/main.js"></script>
 
-    <!-- Performance Optimized Scripts -->
+    <!-- Enhanced Spline Integration with Mobile/Desktop Detection -->
     <script>
-      // Optimized Spline initialization with WebGL error prevention
-      document.addEventListener('DOMContentLoaded', () => {
-        // Initialize Spline viewers with error handling
-        initializeSplineViewers();
+      // WebGL Context Debugging
+      function debugWebGLContext() {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
 
-        // Load icons only if needed
-        const lucideIcons = document.querySelectorAll('[data-lucide]');
-        if (lucideIcons.length > 0) {
-          loadLucideIcons();
+        if (!gl) {
+          console.error('WebGL not supported');
+          return false;
         }
-      });
 
+        console.log('WebGL Context Info:', {
+          vendor: gl.getParameter(gl.VENDOR),
+          renderer: gl.getParameter(gl.RENDERER),
+          version: gl.getParameter(gl.VERSION),
+          maxTextureSize: gl.getParameter(gl.MAX_TEXTURE_SIZE),
+          maxViewportDims: gl.getParameter(gl.MAX_VIEWPORT_DIMS),
+        });
+
+        return true;
+      }
+
+      // Adaptive quality based on device capabilities
+      function getSplineUrl() {
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const isLowEndDevice = navigator.hardwareConcurrency <= 4;
+        const hasSlowConnection = navigator.connection?.effectiveType === '2g' ||
+                                 navigator.connection?.effectiveType === '3g';
+
+        if (isMobile || isLowEndDevice || hasSlowConnection) {
+          return {
+            url: 'https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode',
+            quality: 'mobile'
+          };
+        }
+
+        return {
+          url: 'https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode',
+          quality: 'desktop'
+        };
+      }
+
+      // Wait for container to be ready
+      function waitForContainer(container) {
+        return new Promise((resolve, reject) => {
+          const checkDimensions = () => {
+            const rect = container.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) {
+              resolve();
+            } else {
+              // Retry after next frame
+              requestAnimationFrame(checkDimensions);
+            }
+          };
+
+          // Start checking
+          checkDimensions();
+
+          // Timeout after 5 seconds
+          setTimeout(() => reject(new Error('Container dimensions timeout')), 5000);
+        });
+      }
+
+      // Create Spline viewer with proper error handling
+      function createSplineViewer(container) {
+        const viewer = document.createElement('spline-viewer');
+        const { url, quality } = getSplineUrl();
+
+        viewer.setAttribute('url', url);
+        viewer.setAttribute('events-target', 'global');
+        viewer.setAttribute('loading-text', 'Loading 3D Scene...');
+
+        console.log(`Loading Spline scene: ${quality} quality`);
+
+        // Handle events
+        viewer.addEventListener('load', () => {
+          console.log('Spline scene loaded successfully');
+          container.classList.add('loaded');
+        });
+
+        viewer.addEventListener('error', (event) => {
+          console.error('Spline loading error:', event);
+          showFallback(container);
+        });
+
+        container.appendChild(viewer);
+      }
+
+      // Show fallback content
+      function showFallback(container) {
+        container.innerHTML = `
+          <div class="spline-fallback">
+            <div class="fallback-gradient"></div>
+            <div class="fallback-content">
+              <h2>IPIXELP</h2>
+              <p>International Pixel Production</p>
+              <p>Boîte de production audiovisuelle</p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Enhanced Spline initialization
       function initializeSplineViewers() {
-        const container = document.querySelector('.spline-container');
-        const desktopViewer = document.querySelector('.hero-desktop');
-        const mobileViewer = document.querySelector('.hero-mobile');
-
-        if (!container || !desktopViewer || !mobileViewer) {
+        // Check WebGL support first
+        if (!debugWebGLContext()) {
+          document.querySelectorAll('.spline-container').forEach(showFallback);
           return;
         }
 
-        // Ensure container has proper dimensions before WebGL initialization
-        const rect = container.getBoundingClientRect();
-        if (rect.width === 0 || rect.height === 0) {
-          // Retry after a short delay if container has no dimensions
-          setTimeout(initializeSplineViewers, 100);
-          return;
-        }
+        const containers = document.querySelectorAll('.spline-container');
 
-        // Add error handling to Spline viewers
-        [desktopViewer, mobileViewer].forEach(viewer => {
-          viewer.addEventListener('error', handleSplineError);
-          viewer.addEventListener('load', () => {
-            console.log('Spline viewer loaded successfully');
+        containers.forEach(container => {
+          // Wait for container to be ready
+          waitForContainer(container).then(() => {
+            createSplineViewer(container);
+          }).catch(error => {
+            console.error('Failed to initialize Spline container:', error);
+            showFallback(container);
           });
         });
       }
 
-      function handleSplineError(event) {
-        console.warn('Spline viewer error (non-critical):', event.type);
-        // Graceful degradation - the site continues to work without 3D
+      // Initialize with proper timing
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          // Wait for layout to complete
+          setTimeout(initializeSplineViewers, 100);
+        });
+      } else {
+        // DOM already loaded, wait for next frame
+        requestAnimationFrame(() => {
+          setTimeout(initializeSplineViewers, 100);
+        });
       }
 
+      // Load icons only if needed
       function loadLucideIcons() {
+        const lucideIcons = document.querySelectorAll('[data-lucide]');
+        if (lucideIcons.length === 0) return;
+
         if (typeof lucide === 'undefined') {
           const script = document.createElement('script');
           script.src = 'https://unpkg.com/lucide@latest/dist/umd/lucide.js';
@@ -675,6 +763,9 @@
           lucide.createIcons();
         }
       }
+
+      // Load icons after DOM is ready
+      document.addEventListener('DOMContentLoaded', loadLucideIcons);
     </script>
   </body>
 </html>

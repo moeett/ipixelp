@@ -333,20 +333,110 @@ a:hover {
   overflow: hidden;
 }
 
-/* Spline Container - Prevents layout shifts and WebGL errors */
+/* Spline Container - Enhanced with proper sizing and fallback support */
 .spline-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
+  min-height: 500px; /* Desktop default */
   background: var(--bg-primary);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Base styles for all Spline viewers */
+/* Mobile specific sizing */
+@media (max-width: 768px) {
+  .spline-container {
+    min-height: 300px; /* Smaller for mobile */
+  }
+}
+
+/* Loading state */
+.spline-container:not(.loaded)::after {
+  content: 'Loading 3D content...';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-secondary);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  z-index: 10;
+}
+
+/* Ensure spline-viewer fills container */
+.spline-container spline-viewer {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  border: none;
+  outline: none;
+}
+
+/* Fallback styles */
+.spline-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  z-index: 5;
+}
+
+.fallback-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg,
+    #0a0a0a 0%,
+    #2a0a0a 25%,
+    var(--accent-primary) 50%,
+    #1a0a0a 75%,
+    #0a0a0a 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+}
+
+.fallback-content {
+  position: relative;
+  z-index: 2;
+  color: var(--text-primary);
+}
+
+.fallback-content h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+.fallback-content p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin: 0.5rem 0;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Legacy viewer styles for backward compatibility */
 .hero .hero-desktop,
 .hero .hero-mobile {
   width: 100%;
@@ -356,27 +446,7 @@ a:hover {
   position: absolute;
   top: 0;
   left: 0;
-}
-
-/* Desktop Spline Scene - Show on larger screens */
-.hero .hero-desktop {
-  display: block;
-}
-
-/* Mobile Spline Scene - Hide on larger screens */
-.hero .hero-mobile {
-  display: none;
-}
-
-/* Mobile-specific media query for Spline scenes */
-@media (max-width: 480px) {
-  .hero .hero-desktop {
-    display: none !important;
-  }
-
-  .hero .hero-mobile {
-    display: block !important;
-  }
+  display: none; /* Hidden by default, will be shown by JS */
 }
 
 /* Old hero styles - commented out since we're using full Spline embed
