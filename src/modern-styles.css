@@ -333,25 +333,17 @@ a:hover {
   overflow: hidden;
 }
 
-/* Fixed Spline Container - Prevents WebGL 0x0 dimension errors */
+/* Clean Spline Container - Fixed dimensions, no conflicts */
 .spline-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 600px !important; /* Fixed height instead of vh to prevent 0 height issues */
-  min-height: 400px !important;
+  position: relative;
+  width: 100%;
+  height: 600px; /* Fixed height */
   overflow: hidden;
-  background-color: #000; /* Add background to see container */
-  display: block !important;
-  visibility: visible !important;
+  background: #000; /* So you can see the container */
 }
 
-/* Force spline-viewer to fill container */
-.spline-container spline-viewer {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
+/* Make spline-viewer fill the container */
+spline-viewer {
   width: 100% !important;
   height: 100% !important;
   display: block !important;
@@ -359,30 +351,36 @@ a:hover {
   outline: none;
 }
 
-/* Mobile specific - fixed dimensions */
+/* Mobile adjustments */
 @media (max-width: 768px) {
   .spline-container {
-    height: 400px !important;
-    min-height: 300px !important;
+    height: 400px; /* Smaller on mobile */
   }
 }
 
-/* Ensure hero section is visible */
+/* Debug - shows container is working */
+.spline-container::before {
+  content: 'Spline Container';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  z-index: 10;
+  pointer-events: none;
+  font-size: 12px;
+}
+
+/* Hide debug text when loaded */
+.spline-container.spline-loaded::before {
+  display: none;
+}
+
+/* Ensure hero section doesn't interfere */
 .hero {
   min-height: 100vh;
   position: relative;
   display: block;
-}
-
-/* Hide any loading text */
-.spline-container::before,
-.spline-container::after {
-  display: none !important;
-}
-
-/* Remove any default Spline loading indicators */
-spline-viewer::part(loading-poster) {
-  display: none !important;
+  /* Remove any overflow: hidden that might hide Spline */
 }
 
 /* Fallback styles */
