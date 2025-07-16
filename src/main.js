@@ -195,13 +195,17 @@ class IPPixelWebsite {
     const lightVersion = document.querySelector('.about-light');
     const darkVersion = document.querySelector('.about-dark');
 
+    console.log('Switching about theme to:', theme); // Debug log
+
     if (lightVersion && darkVersion) {
       if (theme === 'light') {
         lightVersion.style.display = 'block';
         darkVersion.style.display = 'none';
+        console.log('Showing light version'); // Debug log
       } else {
         lightVersion.style.display = 'none';
         darkVersion.style.display = 'block';
+        console.log('Showing dark version'); // Debug log
       }
     }
   }
