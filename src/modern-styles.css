@@ -909,6 +909,208 @@ section {
   margin-top: 0.5rem;
 }
 
+/* Services Section - Brutalist Design */
+.services-brutalist {
+  padding: 6rem 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Services Headers */
+.services-header-white {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.services-header-white h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #bf0f0f;
+  margin-bottom: 0.5rem;
+  text-transform: lowercase;
+}
+
+.services-header-white p {
+  font-size: 1.1rem;
+  color: #666;
+  font-weight: 400;
+}
+
+.services-header-dark {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.services-header-dark h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #bf0f0f;
+  margin-bottom: 0.5rem;
+  text-transform: lowercase;
+}
+
+.services-header-dark p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+}
+
+/* Services Grid */
+.services-grid-brutalist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* White Theme Services */
+.services-white {
+  background: #f8f8f8;
+  color: #1a1a1a;
+  padding: 4rem 0;
+}
+
+.service-card-white {
+  background: #ffffff;
+  color: #1a1a1a;
+  padding: 2rem;
+  position: relative;
+  border: 4px solid #1a1a1a;
+  transform: rotate(-1deg);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 0 #1a1a1a;
+}
+
+.service-card-white:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.service-card-white:hover {
+  transform: rotate(0deg) translateY(-5px);
+  box-shadow: 8px 8px 0 #bf0f0f;
+}
+
+.service-icon-white {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: #bf0f0f;
+  color: #ffffff;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.service-card-white:hover .service-icon-white {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.service-card-white h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1a1a1a;
+  padding-right: 2rem;
+}
+
+.service-card-white p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #2a2a2a;
+}
+
+.service-corner-white {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-bottom: 20px solid #bf0f0f;
+}
+
+/* Dark Theme Services */
+.services-dark {
+  background: #1a1a1a;
+  color: #f0f0f0;
+  padding: 4rem 0;
+}
+
+.service-card-dark {
+  background: #f8f8f8;
+  color: #1a1a1a;
+  padding: 2rem;
+  position: relative;
+  border: 4px solid #1a1a1a;
+  transform: rotate(-1deg);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 0 #1a1a1a;
+}
+
+.service-card-dark:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.service-card-dark:hover {
+  transform: rotate(0deg) translateY(-5px);
+  box-shadow: 8px 8px 0 #bf0f0f;
+}
+
+.service-icon-dark {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: #bf0f0f;
+  color: #ffffff;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.service-card-dark:hover .service-icon-dark {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.service-card-dark h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1a1a1a;
+  padding-right: 2rem;
+}
+
+.service-card-dark p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #2a2a2a;
+}
+
+.service-corner-dark {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-bottom: 20px solid #bf0f0f;
+}
+
 /* Services Section */
 .services {
   background: var(--bg-primary);
@@ -1575,6 +1777,38 @@ section {
   .about-light .cta-button-about:hover,
   .about-dark .cta-button-about:hover {
     transform: translateY(-2px);
+  }
+
+  /* Mobile fixes for Services Brutalist section */
+  .services-grid-brutalist {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .service-card-white,
+  .service-card-dark {
+    transform: rotate(0deg);
+    margin: 0 1rem;
+  }
+
+  .service-card-white:nth-child(even),
+  .service-card-dark:nth-child(even) {
+    transform: rotate(0deg);
+  }
+
+  .service-card-white:hover,
+  .service-card-dark:hover {
+    transform: translateY(-3px);
+  }
+
+  .services-header-white h2,
+  .services-header-dark h2 {
+    font-size: 2rem;
+  }
+
+  .services-white,
+  .services-dark {
+    padding: 3rem 0;
   }
 
   .navbar {

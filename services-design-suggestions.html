@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Services Section Design Suggestions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-red: #bf0f0f;
+            --brand-red-light: #e01515;
+            --black: #000000;
+            --white: #ffffff;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #333333;
+            --gray-light: #666666;
+            --gray-lighter: #f8f8f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--brand-red);
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--gray-light);
+            font-size: 1.1rem;
+        }
+
+        .design-section {
+            margin-bottom: 6rem;
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--gray-medium);
+            position: relative;
+        }
+
+        .design-title {
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            background: var(--brand-red);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Design 1: Modern Card Grid */
+        .design-1 .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .design-1 .service-card {
+            background: linear-gradient(135deg, var(--gray-dark) 0%, var(--gray-medium) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .design-1 .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--brand-red);
+        }
+
+        .design-1 .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(191, 15, 15, 0.2);
+        }
+
+        .design-1 .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            filter: grayscale(1);
+            transition: filter 0.3s ease;
+        }
+
+        .design-1 .service-card:hover .service-icon {
+            filter: grayscale(0);
+        }
+
+        .design-1 .service-card h3 {
+            color: var(--brand-red);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .design-1 .service-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Design 2: Alternating Layout */
+        .design-2 .services-alternating {
+            margin-top: 3rem;
+        }
+
+        .design-2 .service-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .design-2 .service-right {
+            direction: rtl;
+        }
+
+        .design-2 .service-right > * {
+            direction: ltr;
+        }
+
+        .design-2 .service-content {
+            padding: 2rem;
+        }
+
+        .design-2 .service-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--brand-red);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .design-2 .service-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .design-2 .service-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .design-2 .service-visual {
+            background: var(--gray-dark);
+            border-radius: 12px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--brand-red);
+        }
+
+        .design-2 .visual-placeholder {
+            font-size: 4rem;
+            opacity: 0.7;
+        }
+
+        /* Design 3: Timeline Process */
+        .design-3 .services-timeline {
+            position: relative;
+            margin-top: 3rem;
+            padding-left: 3rem;
+        }
+
+        .design-3 .timeline-line {
+            position: absolute;
+            left: 1.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--brand-red);
+        }
+
+        .design-3 .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .design-3 .timeline-dot {
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 3rem;
+            height: 3rem;
+            background: var(--brand-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+
+        .design-3 .timeline-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .design-3 .timeline-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Design 4: Masonry Layout */
+        .design-4 .services-masonry {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-auto-rows: 200px;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .design-4 .masonry-item {
+            background: var(--gray-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 2px solid var(--brand-red);
+            transition: all 0.3s ease;
+        }
+
+        .design-4 .masonry-large {
+            grid-row: span 2;
+        }
+
+        .design-4 .masonry-medium {
+            grid-row: span 1;
+        }
+
+        .design-4 .masonry-small {
+            grid-row: span 1;
+        }
+
+        .design-4 .masonry-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(191, 15, 15, 0.3);
+        }
+
+        .design-4 .masonry-content h3 {
+            color: var(--brand-red);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .design-4 .service-icon-large {
+            font-size: 3rem;
+            margin: 1rem 0;
+        }
+
+        .design-4 .service-icon-medium {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .design-4 .service-icon-small {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+
+        .design-4 .masonry-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Design 5: Accordion Style */
+        .design-5 .services-accordion {
+            margin-top: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .design-5 .accordion-item {
+            border: 1px solid var(--gray-medium);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .design-5 .accordion-header {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--gray-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .design-5 .accordion-header:hover {
+            background: var(--gray-medium);
+        }
+
+        .design-5 .accordion-number {
+            background: var(--brand-red);
+            color: var(--white);
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1.5rem;
+        }
+
+        .design-5 .accordion-header h3 {
+            flex: 1;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .design-5 .accordion-toggle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--brand-red);
+        }
+
+        .design-5 .accordion-content {
+            padding: 0 2rem 2rem 2rem;
+            background: var(--black);
+            display: none;
+        }
+
+        .design-5 .accordion-item.active .accordion-content {
+            display: block;
+        }
+
+        .design-5 .accordion-content p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        /* Design 6: Split Hero Style */
+        .design-6 .services-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+            align-items: center;
+        }
+
+        .design-6 .split-left h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--brand-red);
+            margin-bottom: 1rem;
+        }
+
+        .design-6 .split-left p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .design-6 .service-mini {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--gray-dark);
+            border-radius: 8px;
+            border-left: 4px solid var(--brand-red);
+        }
+
+        .design-6 .mini-number {
+            background: var(--brand-red);
+            color: var(--white);
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .design-6 .mini-content h4 {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .design-6 .mini-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Design 7: Hexagon Grid */
+        .design-7 .services-hexagon {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .design-7 .hex-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 600px;
+        }
+
+        .design-7 .hexagon {
+            width: 200px;
+            height: 200px;
+            background: var(--brand-red);
+            position: relative;
+            margin: 2rem 0;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .design-7 .hexagon:hover {
+            transform: scale(1.1);
+        }
+
+        .design-7 .hex-content {
+            text-align: center;
+            color: var(--white);
+        }
+
+        .design-7 .hex-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .design-7 .hex-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Design 8: Circular Flow */
+        .design-8 .services-circular {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 3rem auto;
+        }
+
+        .design-8 .circle-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: var(--brand-red);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .design-8 .circle-center h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 0.25rem;
+        }
+
+        .design-8 .circle-item {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: var(--gray-dark);
+            border: 2px solid var(--brand-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .design-8 .circle-1 { top: 0; left: 50%; transform: translateX(-50%); }
+        .design-8 .circle-2 { top: 50%; right: 0; transform: translateY(-50%); }
+        .design-8 .circle-3 { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .design-8 .circle-4 { top: 50%; left: 0; transform: translateY(-50%); }
+
+        .design-8 .circle-item:hover {
+            background: var(--brand-red);
+        }
+
+        .design-8 .circle-content {
+            text-align: center;
+            color: var(--white);
+        }
+
+        .design-8 .circle-content h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .design-8 .circle-content p {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        /* Design 9: Tabs Interface */
+        .design-9 .services-tabs {
+            margin-top: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .design-9 .tab-headers {
+            display: flex;
+            border-bottom: 2px solid var(--gray-medium);
+            margin-bottom: 2rem;
+        }
+
+        .design-9 .tab-header {
+            flex: 1;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .design-9 .tab-header.active {
+            color: var(--brand-red);
+            border-bottom-color: var(--brand-red);
+        }
+
+        .design-9 .tab-header:hover {
+            color: var(--white);
+        }
+
+        .design-9 .tab-content {
+            min-height: 200px;
+        }
+
+        .design-9 .tab-pane {
+            display: none;
+        }
+
+        .design-9 .tab-pane.active {
+            display: block;
+        }
+
+        .design-9 .tab-inner {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .design-9 .tab-icon {
+            font-size: 4rem;
+            opacity: 0.8;
+        }
+
+        .design-9 .tab-text h3 {
+            color: var(--brand-red);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .design-9 .tab-text p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        /* Design 10: Brutalist Cards */
+        .design-10 .services-brutalist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .design-10 .brutalist-card {
+            background: var(--gray-lighter);
+            color: var(--black);
+            padding: 2rem;
+            position: relative;
+            border: 4px solid var(--black);
+            transform: rotate(-1deg);
+            transition: all 0.3s ease;
+        }
+
+        .design-10 .brutalist-card:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        .design-10 .brutalist-card:hover {
+            transform: rotate(0deg) translateY(-5px);
+            box-shadow: 8px 8px 0 var(--brand-red);
+        }
+
+        .design-10 .brutalist-number {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--brand-red);
+            color: var(--white);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border: 3px solid var(--black);
+        }
+
+        .design-10 .brutalist-card h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .design-10 .brutalist-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .design-10 .brutalist-corner {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-bottom: 20px solid var(--brand-red);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--brand-red);
+            margin-bottom: 0.5rem;
+            text-transform: lowercase;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+        }
+
+        .section-header-white {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header-white h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--brand-red);
+            margin-bottom: 0.5rem;
+            text-transform: lowercase;
+        }
+
+        .section-header-white p {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        /* Design 10b: Brutalist Cards White Theme */
+        .design-10b {
+            background: #f8f8f8;
+            color: #1a1a1a;
+        }
+
+        .design-10b .services-brutalist-white {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .design-10b .brutalist-card-white {
+            background: var(--white);
+            color: #1a1a1a;
+            padding: 2rem;
+            position: relative;
+            border: 4px solid #1a1a1a;
+            transform: rotate(-1deg);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 0 #1a1a1a;
+        }
+
+        .design-10b .brutalist-card-white:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        .design-10b .brutalist-card-white:hover {
+            transform: rotate(0deg) translateY(-5px);
+            box-shadow: 8px 8px 0 var(--brand-red);
+        }
+
+        .design-10b .brutalist-number-white {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--brand-red);
+            color: var(--white);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border: 3px solid #1a1a1a;
+        }
+
+        .design-10b .brutalist-card-white h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+        }
+
+        .design-10b .brutalist-card-white p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #2a2a2a;
+        }
+
+        .design-10b .brutalist-corner-white {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-bottom: 20px solid var(--brand-red);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .design-2 .service-row {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .design-2 .service-right {
+                direction: ltr;
+            }
+
+            .design-3 .services-timeline {
+                padding-left: 2rem;
+            }
+
+            .design-3 .timeline-dot {
+                left: -1.5rem;
+                width: 2rem;
+                height: 2rem;
+                font-size: 1rem;
+            }
+
+            .design-4 .services-masonry {
+                grid-template-columns: 1fr;
+                grid-auto-rows: auto;
+            }
+
+            .design-4 .masonry-large,
+            .design-4 .masonry-medium,
+            .design-4 .masonry-small {
+                grid-row: span 1;
+            }
+
+            .design-6 .services-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .design-7 .hex-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .design-7 .hexagon {
+                width: 150px;
+                height: 150px;
+                margin: 1rem auto;
+            }
+
+            .design-8 .services-circular {
+                width: 300px;
+                height: 300px;
+            }
+
+            .design-8 .circle-center {
+                width: 80px;
+                height: 80px;
+            }
+
+            .design-8 .circle-item {
+                width: 70px;
+                height: 70px;
+            }
+
+            .design-9 .tab-headers {
+                flex-direction: column;
+            }
+
+            .design-9 .tab-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .design-10 .services-brutalist,
+            .design-10b .services-brutalist-white {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Services Section Design Suggestions</h1>
+        <p class="intro">Here are 10 modern, responsive design approaches for the services section featuring: Conseil stratégique, Création, Production, and Amplification.</p>
+        
+        <!-- Design 1: Modern Card Grid -->
+        <div class="design-section design-1">
+            <div class="design-title">Design 1: Modern Card Grid</div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Conseil stratégique</h3>
+                    <p>Nous donnons de la perspective à vos chiffres grâce à une stratégie à long terme qui vous permettrait de vous démarquer de la concurrence.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Création</h3>
+                    <p>Nos équipes créatives vous proposent des contenus originaux, adaptés à vos canaux de diffusion et à votre budget, afin de garantir le meilleur ROI à votre campagne</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎬</div>
+                    <h3>Production</h3>
+                    <p>Nous vous donnons l'occasion de plonger dans une nouvelle génération d'image en 6k, en vous offrant une création et une production sur mesure quelque soit votre projet.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📈</div>
+                    <h3>Amplification</h3>
+                    <p>Grâce à notre expertise en production de formats audiovisuels pour nos propres médias, nous pouvons vous accompagner jusqu'à l'amplification de vos différents contenus.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 2: Alternating Layout -->
+        <div class="design-section design-2">
+            <div class="design-title">Design 2: Alternating Layout</div>
+            <div class="services-alternating">
+                <div class="service-row service-left">
+                    <div class="service-content">
+                        <div class="service-number">01</div>
+                        <h3>Conseil stratégique</h3>
+                        <p>Nous donnons de la perspective à vos chiffres grâce à une stratégie à long terme qui vous permettrait de vous démarquer de la concurrence.</p>
+                    </div>
+                    <div class="service-visual">
+                        <div class="visual-placeholder">📊</div>
+                    </div>
+                </div>
+                <div class="service-row service-right">
+                    <div class="service-visual">
+                        <div class="visual-placeholder">🎨</div>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-number">02</div>
+                        <h3>Création</h3>
+                        <p>Nos équipes créatives vous proposent des contenus originaux, adaptés à vos canaux de diffusion et à votre budget, afin de garantir le meilleur ROI à votre campagne</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 3: Timeline Process -->
+        <div class="design-section design-3">
+            <div class="design-title">Design 3: Timeline Process</div>
+            <div class="services-timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">1</div>
+                    <div class="timeline-content">
+                        <h3>Conseil stratégique</h3>
+                        <p>Nous donnons de la perspective à vos chiffres grâce à une stratégie à long terme qui vous permettrait de vous démarquer de la concurrence.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">2</div>
+                    <div class="timeline-content">
+                        <h3>Création</h3>
+                        <p>Nos équipes créatives vous proposent des contenus originaux, adaptés à vos canaux de diffusion et à votre budget, afin de garantir le meilleur ROI à votre campagne</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">3</div>
+                    <div class="timeline-content">
+                        <h3>Production</h3>
+                        <p>Nous vous donnons l'occasion de plonger dans une nouvelle génération d'image en 6k, en vous offrant une création et une production sur mesure quelque soit votre projet. IPP a les moyens d'en transcender vos vidéos par le motion design, la communication audiovisuelle dynamique, le web-casting ou encore la 3D</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">4</div>
+                    <div class="timeline-content">
+                        <h3>Amplification</h3>
+                        <p>Grâce à notre expertise en production de formats audiovisuels pour nos propres médias, nous pouvons vous accompagner jusqu'à l'amplification de vos différents contenus. Nous prenons tout en charge jusqu'au bout.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 4: Masonry Layout -->
+        <div class="design-section design-4">
+            <div class="design-title">Design 4: Masonry Layout</div>
+            <div class="services-masonry">
+                <div class="masonry-item masonry-large">
+                    <div class="masonry-content">
+                        <h3>Conseil stratégique</h3>
+                        <div class="service-icon-large">📊</div>
+                        <p>Nous donnons de la perspective à vos chiffres grâce à une stratégie à long terme qui vous permettrait de vous démarquer de la concurrence.</p>
+                    </div>
+                </div>
+                <div class="masonry-item masonry-small">
+                    <div class="masonry-content">
+                        <h3>Création</h3>
+                        <div class="service-icon-small">🎨</div>
+                        <p>Nos équipes créatives vous proposent des contenus originaux, adaptés à vos canaux de diffusion et à votre budget.</p>
+                    </div>
+                </div>
+                <div class="masonry-item masonry-medium">
+                    <div class="masonry-content">
+                        <h3>Production</h3>
+                        <div class="service-icon-medium">🎬</div>
+                        <p>Nous vous donnons l'occasion de plonger dans une nouvelle génération d'image en 6k, en vous offrant une création et une production sur mesure.</p>
+                    </div>
+                </div>
+                <div class="masonry-item masonry-medium">
+                    <div class="masonry-content">
+                        <h3>Amplification</h3>
+                        <div class="service-icon-medium">📈</div>
+                        <p>Grâce à notre expertise en production de formats audiovisuels pour nos propres médias, nous pouvons vous accompagner jusqu'à l'amplification.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 5: Accordion Style -->
+        <div class="design-section design-5">
+            <div class="design-title">Design 5: Accordion Style</div>
+            <div class="services-accordion">
+                <div class="accordion-item active">
+                    <div class="accordion-header">
+                        <span class="accordion-number">01</span>
+                        <h3>Conseil stratégique</h3>
+                        <span class="accordion-toggle">−</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Nous donnons de la perspective à vos chiffres grâce à une stratégie à long terme qui vous permettrait de vous démarquer de la concurrence.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="accordion-number">02</span>
+                        <h3>Création</h3>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Nos équipes créatives vous proposent des contenus originaux, adaptés à vos canaux de diffusion et à votre budget, afin de garantir le meilleur ROI à votre campagne</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="accordion-number">03</span>
+                        <h3>Production</h3>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Nous vous donnons l'occasion de plonger dans une nouvelle génération d'image en 6k, en vous offrant une création et une production sur mesure quelque soit votre projet. IPP a les moyens d'en transcender vos vidéos par le motion design, la communication audiovisuelle dynamique, le web-casting ou encore la 3D</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="accordion-number">04</span>
+                        <h3>Amplification</h3>
+                        <span class="accordion-toggle">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Grâce à notre expertise en production de formats audiovisuels pour nos propres médias, nous pouvons vous accompagner jusqu'à l'amplification de vos différents contenus. Nous prenons tout en charge jusqu'au bout.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 6: Split Hero Style -->
+        <div class="design-section design-6">
+            <div class="design-title">Design 6: Split Hero Style</div>
+            <div class="services-split">
+                <div class="split-left">
+                    <h2>Nos Services</h2>
+                    <p>Une approche complète pour transformer vos idées en réalité audiovisuelle</p>
+                </div>
+                <div class="split-right">
+                    <div class="service-mini">
+                        <span class="mini-number">01</span>
+                        <div class="mini-content">
+                            <h4>Conseil stratégique</h4>
+                            <p>Stratégie à long terme pour vous démarquer</p>
+                        </div>
+                    </div>
+                    <div class="service-mini">
+                        <span class="mini-number">02</span>
+                        <div class="mini-content">
+                            <h4>Création</h4>
+                            <p>Contenus originaux adaptés à vos canaux</p>
+                        </div>
+                    </div>
+                    <div class="service-mini">
+                        <span class="mini-number">03</span>
+                        <div class="mini-content">
+                            <h4>Production</h4>
+                            <p>Images 6K et production sur mesure</p>
+                        </div>
+                    </div>
+                    <div class="service-mini">
+                        <span class="mini-number">04</span>
+                        <div class="mini-content">
+                            <h4>Amplification</h4>
+                            <p>Accompagnement jusqu'à la diffusion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 7: Hexagon Grid -->
+        <div class="design-section design-7">
+            <div class="design-title">Design 7: Hexagon Grid</div>
+            <div class="services-hexagon">
+                <div class="hex-container">
+                    <div class="hexagon hex-1">
+                        <div class="hex-content">
+                            <div class="hex-icon">📊</div>
+                            <h3>Conseil stratégique</h3>
+                        </div>
+                    </div>
+                    <div class="hexagon hex-2">
+                        <div class="hex-content">
+                            <div class="hex-icon">🎨</div>
+                            <h3>Création</h3>
+                        </div>
+                    </div>
+                    <div class="hexagon hex-3">
+                        <div class="hex-content">
+                            <div class="hex-icon">🎬</div>
+                            <h3>Production</h3>
+                        </div>
+                    </div>
+                    <div class="hexagon hex-4">
+                        <div class="hex-content">
+                            <div class="hex-icon">📈</div>
+                            <h3>Amplification</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 8: Circular Flow -->
+        <div class="design-section design-8">
+            <div class="design-title">Design 8: Circular Flow</div>
+            <div class="services-circular">
+                <div class="circle-center">
+                    <h2>IPP</h2>
+                    <p>Services</p>
+                </div>
+                <div class="circle-item circle-1">
+                    <div class="circle-content">
+                        <h3>Conseil</h3>
+                        <p>Stratégie</p>
+                    </div>
+                </div>
+                <div class="circle-item circle-2">
+                    <div class="circle-content">
+                        <h3>Création</h3>
+                        <p>Contenu</p>
+                    </div>
+                </div>
+                <div class="circle-item circle-3">
+                    <div class="circle-content">
+                        <h3>Production</h3>
+                        <p>6K Video</p>
+                    </div>
+                </div>
+                <div class="circle-item circle-4">
+                    <div class="circle-content">
+                        <h3>Amplification</h3>
+                        <p>Diffusion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 9: Tabs Interface -->
+        <div class="design-section design-9">
+            <div class="design-title">Design 9: Tabs Interface</div>
+            <div class="services-tabs">
+                <div class="tab-headers">
+                    <button class="tab-header active" data-tab="conseil">Conseil stratégique</button>
+                    <button class="tab-header" data-tab="creation">Création</button>
+                    <button class="tab-header" data-tab="production">Production</button>
+                    <button class="tab-header" data-tab="amplification">Amplification</button>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="conseil">
+                        <div class="tab-inner">
+                            <div class="tab-icon">📊</div>
+                            <div class="tab-text">
+                                <h3>Conseil stratégique</h3>
+                                <p>Nous donnons de la perspective à vos chiffres grâce à une stratégie à long terme qui vous permettrait de vous démarquer de la concurrence.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="creation">
+                        <div class="tab-inner">
+                            <div class="tab-icon">🎨</div>
+                            <div class="tab-text">
+                                <h3>Création</h3>
+                                <p>Nos équipes créatives vous proposent des contenus originaux, adaptés à vos canaux de diffusion et à votre budget, afin de garantir le meilleur ROI à votre campagne</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="production">
+                        <div class="tab-inner">
+                            <div class="tab-icon">🎬</div>
+                            <div class="tab-text">
+                                <h3>Production</h3>
+                                <p>Nous vous donnons l'occasion de plonger dans une nouvelle génération d'image en 6k, en vous offrant une création et une production sur mesure quelque soit votre projet.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="amplification">
+                        <div class="tab-inner">
+                            <div class="tab-icon">📈</div>
+                            <div class="tab-text">
+                                <h3>Amplification</h3>
+                                <p>Grâce à notre expertise en production de formats audiovisuels pour nos propres médias, nous pouvons vous accompagner jusqu'à l'amplification de vos différents contenus.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 10: Brutalist Cards (Dark Theme) -->
+        <div class="design-section design-10">
+            <div class="design-title">Design 10: Brutalist Cards (Dark)</div>
+            <div class="section-header">
+                <h2>Nos services</h2>
+                <p>L'expertise qui transforme vos projets en succès</p>
+            </div>
+            <div class="services-brutalist">
+                <div class="brutalist-card">
+                    <div class="brutalist-number">01</div>
+                    <h3>CONSEIL STRATÉGIQUE</h3>
+                    <p>Nous donnons de la perspective à vos chiffres grâce à une stratégie à long terme qui vous permettrait de vous démarquer de la concurrence.</p>
+                    <div class="brutalist-corner"></div>
+                </div>
+                <div class="brutalist-card">
+                    <div class="brutalist-number">02</div>
+                    <h3>CRÉATION</h3>
+                    <p>Nos équipes créatives vous proposent des contenus originaux, adaptés à vos canaux de diffusion et à votre budget.</p>
+                    <div class="brutalist-corner"></div>
+                </div>
+                <div class="brutalist-card">
+                    <div class="brutalist-number">03</div>
+                    <h3>PRODUCTION</h3>
+                    <p>Nous vous donnons l'occasion de plonger dans une nouvelle génération d'image en 6k, en vous offrant une création sur mesure.</p>
+                    <div class="brutalist-corner"></div>
+                </div>
+                <div class="brutalist-card">
+                    <div class="brutalist-number">04</div>
+                    <h3>AMPLIFICATION</h3>
+                    <p>Grâce à notre expertise en production de formats audiovisuels, nous pouvons vous accompagner jusqu'à l'amplification.</p>
+                    <div class="brutalist-corner"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design 10b: Brutalist Cards (White Theme) -->
+        <div class="design-section design-10b">
+            <div class="design-title">Design 10: Brutalist Cards (White)</div>
+            <div class="section-header-white">
+                <h2>Ce qu'on fait de mieux</h2>
+                <p>Quatre piliers pour donner vie à vos idées</p>
+            </div>
+            <div class="services-brutalist-white">
+                <div class="brutalist-card-white">
+                    <div class="brutalist-number-white">01</div>
+                    <h3>CONSEIL STRATÉGIQUE</h3>
+                    <p>Nous donnons de la perspective à vos chiffres grâce à une stratégie à long terme qui vous permettrait de vous démarquer de la concurrence.</p>
+                    <div class="brutalist-corner-white"></div>
+                </div>
+                <div class="brutalist-card-white">
+                    <div class="brutalist-number-white">02</div>
+                    <h3>CRÉATION</h3>
+                    <p>Nos équipes créatives vous proposent des contenus originaux, adaptés à vos canaux de diffusion et à votre budget.</p>
+                    <div class="brutalist-corner-white"></div>
+                </div>
+                <div class="brutalist-card-white">
+                    <div class="brutalist-number-white">03</div>
+                    <h3>PRODUCTION</h3>
+                    <p>Nous vous donnons l'occasion de plonger dans une nouvelle génération d'image en 6k, en vous offrant une création sur mesure.</p>
+                    <div class="brutalist-corner-white"></div>
+                </div>
+                <div class="brutalist-card-white">
+                    <div class="brutalist-number-white">04</div>
+                    <h3>AMPLIFICATION</h3>
+                    <p>Grâce à notre expertise en production de formats audiovisuels, nous pouvons vous accompagner jusqu'à l'amplification.</p>
+                    <div class="brutalist-corner-white"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
