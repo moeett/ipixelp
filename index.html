@@ -8,7 +8,8 @@
     <title>International Pixel Production - Agence Production Audiovisuelle Tunisie</title>
     <!-- Fix favicon 404 error -->
     <link rel="icon" href="data:,">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23bf0f0f'/></svg>">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==">
+    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -609,175 +610,96 @@
     </div>
     <script type="module" src="/src/main.js"></script>
 
-    <!-- Enhanced Spline Integration with Mobile/Desktop Detection -->
+    <!-- Fixed Spline Integration - Prevents WebGL Errors -->
     <script>
-      // WebGL Context Debugging
-      function debugWebGLContext() {
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+      // Single initialization flag to prevent double loading
+      let splineInitialized = false;
 
-        if (!gl) {
-          console.error('WebGL not supported');
-          return false;
-        }
+      // Simple, robust Spline initialization
+      function initSplineOnce() {
+        if (splineInitialized) return;
+        splineInitialized = true;
 
-        console.log('WebGL Context Info:', {
-          vendor: gl.getParameter(gl.VENDOR),
-          renderer: gl.getParameter(gl.RENDERER),
-          version: gl.getParameter(gl.VERSION),
-          maxTextureSize: gl.getParameter(gl.MAX_TEXTURE_SIZE),
-          maxViewportDims: gl.getParameter(gl.MAX_VIEWPORT_DIMS),
-        });
+        const container = document.querySelector('.spline-container');
+        if (!container || container.querySelector('spline-viewer')) return;
 
-        return true;
-      }
+        // Force container height to prevent 0x0 WebGL errors
+        container.style.height = window.innerWidth <= 768 ? '400px' : '600px';
+        container.style.width = '100%';
+        container.style.display = 'block';
 
-      // Adaptive quality based on device capabilities
-      function getSplineUrl() {
-        const isMobile = window.matchMedia('(max-width: 768px)').matches;
-        const isLowEndDevice = navigator.hardwareConcurrency <= 4;
-        const hasSlowConnection = navigator.connection?.effectiveType === '2g' ||
-                                 navigator.connection?.effectiveType === '3g';
+        // Debug container dimensions
+        const rect = container.getBoundingClientRect();
+        console.log('Container dimensions:', rect.width + 'x' + rect.height);
 
-        if (isMobile || isLowEndDevice || hasSlowConnection) {
-          return {
-            url: 'https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode',
-            quality: 'mobile'
-          };
-        }
-
-        return {
-          url: 'https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode',
-          quality: 'desktop'
-        };
-      }
-
-      // Wait for container to be ready
-      function waitForContainer(container) {
-        return new Promise((resolve, reject) => {
-          const checkDimensions = () => {
-            const rect = container.getBoundingClientRect();
-            if (rect.width > 0 && rect.height > 0) {
-              resolve();
-            } else {
-              // Retry after next frame
-              requestAnimationFrame(checkDimensions);
-            }
-          };
-
-          // Start checking
-          checkDimensions();
-
-          // Timeout after 5 seconds
-          setTimeout(() => reject(new Error('Container dimensions timeout')), 5000);
-        });
-      }
-
-      // Create Spline viewer with proper error handling
-      function createSplineViewer(container, isMobile) {
-        const viewer = document.createElement('spline-viewer');
-
-        // Your Spline URLs
-        const mobileUrl = 'https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode';
-        const desktopUrl = 'https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode';
-
-        // Set URL based on device
-        viewer.setAttribute('url', isMobile ? mobileUrl : desktopUrl);
-        viewer.setAttribute('events-target', 'global');
-
-        // Log which version is being loaded
-        console.log(`Loading ${isMobile ? 'mobile' : 'desktop'} Spline version`);
-        console.log('Screen width:', window.innerWidth, 'Device type:', isMobile ? 'Mobile' : 'Desktop');
-
-        // Remove loading text when Spline loads
-        viewer.addEventListener('load-start', () => {
-          container.classList.add('loading');
-        });
-
-        viewer.addEventListener('load', () => {
-          container.classList.remove('loading');
-          container.classList.add('loaded');
-          console.log('Spline scene loaded successfully');
-        });
-
-        viewer.addEventListener('error', (event) => {
-          console.error('Spline loading error:', event);
-          showFallback(container);
-        });
-
-        container.appendChild(viewer);
-      }
-
-      // Show fallback content
-      function showFallback(container) {
-        container.innerHTML = `
-          <div class="spline-fallback">
-            <div class="fallback-gradient"></div>
-            <div class="fallback-content">
-              <h2>IPIXELP</h2>
-              <p>International Pixel Production</p>
-              <p>Boîte de production audiovisuelle</p>
-            </div>
-          </div>
-        `;
-      }
-
-      // Enhanced Spline initialization with better mobile detection
-      function initializeSplineViewers() {
-        const containers = document.querySelectorAll('.spline-container');
-
-        containers.forEach(container => {
-          // Clear any loading text immediately
-          container.innerHTML = '';
-
-          // More robust mobile detection
-          const isMobile = checkIfMobile();
-
-          createSplineViewer(container, isMobile);
-        });
-      }
-
-      function checkIfMobile() {
-        // Multiple checks for better mobile detection
-        const width = window.innerWidth;
-        const userAgent = navigator.userAgent.toLowerCase();
-
-        // Check multiple conditions
-        const isMobileWidth = width <= 768;
-        const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-        return isMobileWidth || isMobileDevice || isTouchDevice;
-      }
-
-      // Initialize with proper timing
-      document.addEventListener('DOMContentLoaded', () => {
-        // Small delay to ensure layout is ready
-        setTimeout(initializeSplineViewers, 100);
-      });
-
-      // Handle orientation changes on mobile
-      window.addEventListener('orientationchange', () => {
+        // Wait for layout to complete
         setTimeout(() => {
-          document.querySelectorAll('.spline-container').forEach(container => {
-            container.innerHTML = '';
-            const isMobile = checkIfMobile();
-            createSplineViewer(container, isMobile);
-          });
-        }, 500);
-      });
+          const viewer = document.createElement('spline-viewer');
+          const isMobile = window.innerWidth <= 768;
 
-      // Handle window resize (debounced)
-      let resizeTimer;
+          // Set appropriate URL
+          const mobileUrl = 'https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode';
+          const desktopUrl = 'https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode';
+
+          viewer.setAttribute('url', isMobile ? mobileUrl : desktopUrl);
+
+          console.log(`Loading ${isMobile ? 'mobile' : 'desktop'} Spline (width: ${window.innerWidth})`);
+
+          // Add viewer to container
+          container.appendChild(viewer);
+
+          // Add visual debug indicator
+          const debugDiv = document.createElement('div');
+          debugDiv.style.cssText = `
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            z-index: 9999;
+            border-radius: 4px;
+            font-size: 12px;
+          `;
+          debugDiv.textContent = `${isMobile ? 'Mobile' : 'Desktop'} Version (${window.innerWidth}px)`;
+          container.appendChild(debugDiv);
+
+          // Remove debug indicator after 5 seconds
+          setTimeout(() => {
+            if (debugDiv.parentNode) {
+              debugDiv.parentNode.removeChild(debugDiv);
+            }
+          }, 5000);
+
+        }, 500);
+      }
+
+      // Single initialization point
+      window.addEventListener('load', initSplineOnce);
+
+      // Handle resize only if device type changes
+      let resizeTimeout;
       window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          document.querySelectorAll('.spline-container').forEach(container => {
-            container.innerHTML = '';
-            const isMobile = checkIfMobile();
-            createSplineViewer(container, isMobile);
-          });
-        }, 250);
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          const currentWidth = window.innerWidth;
+          const existingViewer = document.querySelector('spline-viewer');
+
+          if (existingViewer) {
+            const wasMobile = existingViewer.getAttribute('url').includes('7OY7EQbLmGFXXEXJ');
+            const isMobileNow = currentWidth <= 768;
+
+            // Only reinitialize if device type changed
+            if (wasMobile !== isMobileNow) {
+              console.log('Device type changed, reinitializing Spline');
+              splineInitialized = false;
+              document.querySelectorAll('.spline-container').forEach(container => {
+                container.innerHTML = '';
+              });
+              initSplineOnce();
+            }
+          }
+        }, 500);
       });
 
       // Load icons only if needed
@@ -801,38 +723,6 @@
 
       // Load icons after DOM is ready
       document.addEventListener('DOMContentLoaded', loadLucideIcons);
-
-      // Debug helper - shows which version is loading
-      function debugSplineLoading() {
-        const viewer = document.querySelector('spline-viewer');
-        if (viewer) {
-          const url = viewer.getAttribute('url');
-          const deviceInfo = {
-            url: url,
-            version: url.includes('7OY7EQbLmGFXXEXJ') ? 'Mobile Version' : 'Desktop Version',
-            screenWidth: window.innerWidth,
-            userAgent: navigator.userAgent.substring(0, 50) + '...'
-          };
-
-          console.table(deviceInfo);
-
-          // Visual indicator for debugging
-          const indicator = document.createElement('div');
-          indicator.style.cssText = 'position:fixed;top:10px;right:10px;background:rgba(0,0,0,0.8);color:white;padding:8px 12px;z-index:9999;border-radius:4px;font-size:12px;';
-          indicator.textContent = deviceInfo.version;
-          document.body.appendChild(indicator);
-
-          // Remove indicator after 5 seconds
-          setTimeout(() => {
-            if (indicator.parentNode) {
-              indicator.parentNode.removeChild(indicator);
-            }
-          }, 5000);
-        }
-      }
-
-      // Run debug helper after Spline loads
-      setTimeout(debugSplineLoading, 2000);
     </script>
   </body>
 </html>
