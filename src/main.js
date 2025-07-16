@@ -14,6 +14,7 @@ class IPPixelWebsite {
     this.setupAnimations();
     this.setupPortfolio();
     this.setupStats();
+    this.setupAboutSection();
   }
 
   // Navigation functionality
@@ -87,6 +88,9 @@ class IPPixelWebsite {
       if (themeIcon) {
         themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
       }
+
+      // Switch about section theme
+      this.switchAboutTheme(newTheme);
     });
   }
 
@@ -174,6 +178,67 @@ class IPPixelWebsite {
 
     statNumbers.forEach(stat => {
       statsObserver.observe(stat);
+    });
+  }
+
+  // About section functionality
+  setupAboutSection() {
+    // Initialize theme based on current setting
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    this.switchAboutTheme(currentTheme);
+
+    // Setup text animation
+    this.setupAboutTextAnimation();
+  }
+
+  switchAboutTheme(theme) {
+    const lightVersion = document.querySelector('.about-light');
+    const darkVersion = document.querySelector('.about-dark');
+
+    if (lightVersion && darkVersion) {
+      if (theme === 'light') {
+        lightVersion.style.display = 'block';
+        darkVersion.style.display = 'none';
+      } else {
+        lightVersion.style.display = 'none';
+        darkVersion.style.display = 'block';
+      }
+    }
+  }
+
+  setupAboutTextAnimation() {
+    // Animate text switching for about section
+    document.querySelectorAll('.animated-text-about').forEach(container => {
+      const spans = container.querySelectorAll('span');
+      let currentIndex = 0;
+
+      // Initialize: show first span, hide others
+      spans.forEach((span, index) => {
+        if (index === 0) {
+          span.style.opacity = '1';
+          span.style.display = 'block';
+        } else {
+          span.style.opacity = '0';
+          span.style.display = 'none';
+        }
+      });
+
+      setInterval(() => {
+        // Fade out current
+        spans[currentIndex].style.opacity = '0';
+        setTimeout(() => {
+          spans[currentIndex].style.display = 'none';
+
+          // Move to next
+          currentIndex = (currentIndex + 1) % spans.length;
+
+          // Fade in next
+          spans[currentIndex].style.display = 'block';
+          setTimeout(() => {
+            spans[currentIndex].style.opacity = '1';
+          }, 50);
+        }, 300);
+      }, 3000);
     });
   }
 }

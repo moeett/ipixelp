@@ -509,6 +509,134 @@ section {
   margin: 0 auto;
 }
 
+/* About Section - Brutalist Design */
+.about-brutalist {
+  padding: 6rem 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Light Theme (Default) */
+.about-light {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border: 8px solid var(--bg-primary);
+  padding: 4rem;
+  transform: rotate(-1deg);
+  box-shadow: 12px 12px 0 var(--accent-primary);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-light .animated-text-about {
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--bg-primary);
+  transform: rotate(1deg);
+  text-shadow: 4px 4px 0 var(--accent-primary);
+  margin-bottom: 2rem;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+}
+
+.about-light .about-description {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 2rem 0;
+  color: var(--bg-primary);
+}
+
+.about-light .cta-button-about {
+  display: inline-block;
+  background: var(--accent-primary);
+  color: var(--text-primary);
+  border: 4px solid var(--bg-primary);
+  font-weight: 900;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  box-shadow: 4px 4px 0 var(--bg-primary);
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.about-light .cta-button-about:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 6px 6px 0 var(--bg-primary);
+}
+
+/* Dark Theme */
+.about-dark {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 8px solid var(--text-primary);
+  padding: 4rem;
+  transform: rotate(-1deg);
+  box-shadow: 12px 12px 0 var(--accent-primary);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-dark .animated-text-about {
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  transform: rotate(1deg);
+  text-shadow: 4px 4px 0 var(--accent-primary);
+  margin-bottom: 2rem;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+}
+
+.about-dark .about-description {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 2rem 0;
+  color: var(--text-primary);
+}
+
+.about-dark .cta-button-about {
+  display: inline-block;
+  background: var(--accent-primary);
+  color: var(--text-primary);
+  border: 4px solid var(--text-primary);
+  font-weight: 900;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  box-shadow: 4px 4px 0 var(--text-primary);
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.about-dark .cta-button-about:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 6px 6px 0 var(--text-primary);
+  background: var(--text-primary);
+  color: var(--accent-primary);
+}
+
+/* Animated text styles */
+.animated-text-about span {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  position: absolute;
+  width: 100%;
+  left: 0;
+}
+
 /* Client Logos Section */
 .clients {
   background: var(--bg-primary);
@@ -1417,6 +1545,35 @@ section {
 }
 
 @media (max-width: 768px) {
+  /* Mobile fixes for About Brutalist section */
+  .about-light,
+  .about-dark {
+    padding: 2rem;
+    transform: rotate(0deg);
+    box-shadow: 8px 8px 0 var(--accent-primary);
+    margin: 0 1rem;
+  }
+
+  .about-light .animated-text-about,
+  .about-dark .animated-text-about {
+    font-size: 2.2rem;
+    line-height: 1.1;
+    transform: rotate(0deg);
+    margin-bottom: 1.5rem;
+    min-height: 80px;
+  }
+
+  .about-light .cta-button-about,
+  .about-dark .cta-button-about {
+    transform: rotate(0deg);
+    padding: 0.8rem 2rem;
+    font-size: 0.9rem;
+  }
+
+  .about-light .cta-button-about:hover,
+  .about-dark .cta-button-about:hover {
+    transform: translateY(-2px);
+  }
 
   .navbar {
     padding: var(--spacing-sm) var(--spacing-md);
