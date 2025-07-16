@@ -494,13 +494,13 @@ section {
 }
 
 .section-title {
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem) !important;
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
   color: var(--text-primary);
   letter-spacing: -0.02em;
   line-height: 1.2;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
 }
 
 .section-subtitle {
@@ -927,11 +927,11 @@ section {
 }
 
 .services-header h2 {
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem) !important;
   font-weight: 700;
   color: var(--accent-primary);
   margin-bottom: 0.8rem;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
   letter-spacing: -1px;
 }
 
@@ -1078,11 +1078,11 @@ section {
 }
 
 .portfolio-header-brutalist h2 {
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem) !important;
   font-weight: 700;
   color: var(--accent-primary);
   margin-bottom: 0.8rem;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
   letter-spacing: -2px;
 }
 
