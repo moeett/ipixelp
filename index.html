@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.31/build/spline-viewer.js"></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Lucide icons will be loaded dynamically only when needed -->
   </head>
   <body>
     <div id="app">
@@ -60,17 +60,19 @@
 
       <!-- Hero Section with 3D Animation -->
       <section id="home" class="hero">
-        <!-- Desktop Spline Scene -->
-        <spline-viewer
-          class="hero-desktop"
-          url="https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode">
-        </spline-viewer>
+        <div class="spline-container">
+          <!-- Desktop Spline Scene -->
+          <spline-viewer
+            class="hero-desktop"
+            url="https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode">
+          </spline-viewer>
 
-        <!-- Mobile Spline Scene -->
-        <spline-viewer
-          class="hero-mobile"
-          url="https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode">
-        </spline-viewer>
+          <!-- Mobile Spline Scene -->
+          <spline-viewer
+            class="hero-mobile"
+            url="https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode">
+          </spline-viewer>
+        </div>
       </section>
 
       <!-- About Section - Brutalist Design with Theme Support -->
@@ -613,9 +615,66 @@
       </footer>
     </div>
     <script type="module" src="/src/main.js"></script>
+
+    <!-- Performance Optimized Scripts -->
     <script>
-      // Initialize Lucide icons
-      lucide.createIcons();
+      // Optimized Spline initialization with WebGL error prevention
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initialize Spline viewers with error handling
+        initializeSplineViewers();
+
+        // Load icons only if needed
+        const lucideIcons = document.querySelectorAll('[data-lucide]');
+        if (lucideIcons.length > 0) {
+          loadLucideIcons();
+        }
+      });
+
+      function initializeSplineViewers() {
+        const container = document.querySelector('.spline-container');
+        const desktopViewer = document.querySelector('.hero-desktop');
+        const mobileViewer = document.querySelector('.hero-mobile');
+
+        if (!container || !desktopViewer || !mobileViewer) {
+          return;
+        }
+
+        // Ensure container has proper dimensions before WebGL initialization
+        const rect = container.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) {
+          // Retry after a short delay if container has no dimensions
+          setTimeout(initializeSplineViewers, 100);
+          return;
+        }
+
+        // Add error handling to Spline viewers
+        [desktopViewer, mobileViewer].forEach(viewer => {
+          viewer.addEventListener('error', handleSplineError);
+          viewer.addEventListener('load', () => {
+            console.log('Spline viewer loaded successfully');
+          });
+        });
+      }
+
+      function handleSplineError(event) {
+        console.warn('Spline viewer error (non-critical):', event.type);
+        // Graceful degradation - the site continues to work without 3D
+      }
+
+      function loadLucideIcons() {
+        if (typeof lucide === 'undefined') {
+          const script = document.createElement('script');
+          script.src = 'https://unpkg.com/lucide@latest/dist/umd/lucide.js';
+          script.onload = () => {
+            if (typeof lucide !== 'undefined') {
+              lucide.createIcons();
+            }
+          };
+          document.head.appendChild(script);
+        } else {
+          lucide.createIcons();
+        }
+      }
     </script>
   </body>
 </html>

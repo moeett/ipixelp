@@ -333,6 +333,19 @@ a:hover {
   overflow: hidden;
 }
 
+/* Spline Container - Prevents layout shifts and WebGL errors */
+.spline-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Base styles for all Spline viewers */
 .hero .hero-desktop,
 .hero .hero-mobile {
@@ -340,6 +353,9 @@ a:hover {
   height: 100vh;
   border: none;
   outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* Desktop Spline Scene - Show on larger screens */
@@ -350,6 +366,17 @@ a:hover {
 /* Mobile Spline Scene - Hide on larger screens */
 .hero .hero-mobile {
   display: none;
+}
+
+/* Mobile-specific media query for Spline scenes */
+@media (max-width: 480px) {
+  .hero .hero-desktop {
+    display: none !important;
+  }
+
+  .hero .hero-mobile {
+    display: block !important;
+  }
 }
 
 /* Old hero styles - commented out since we're using full Spline embed
