@@ -1,0 +1,10 @@
+# Netlify redirects and rewrites
+
+# Redirect old URLs if any
+# /old-path /new-path 301
+
+# SPA fallback for client-side routing
+/* /index.html 200
+
+# Preload critical resources
+/  /index.html  200  Link: </src/main.js>; rel=modulepreload, </src/style.css>; rel=preload; as=style, <https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap>; rel=preload; as=style

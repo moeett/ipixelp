@@ -1,4 +1,5 @@
 import './style.css'
+import './performance.js'
 
 // Modern JavaScript for International Pixel Production Website
 
@@ -15,6 +16,7 @@ class IPPixelWebsite {
     this.setupPortfolio();
     this.setupStats();
     this.setupAboutSection();
+    this.setupSplineViewers();
   }
 
   // Navigation functionality
@@ -110,7 +112,7 @@ class IPPixelWebsite {
     });
   }
 
-  // Animation on scroll
+  // Optimized animation on scroll
   setupAnimations() {
     const observerOptions = {
       threshold: 0.1,
@@ -120,8 +122,8 @@ class IPPixelWebsite {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target); // Stop observing once animated
         }
       });
     }, observerOptions);
@@ -129,9 +131,7 @@ class IPPixelWebsite {
     // Observe elements for animation
     const animateElements = document.querySelectorAll('.service-card, .portfolio-item, .stat-item');
     animateElements.forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      el.classList.add('animate-ready');
       observer.observe(el);
     });
   }
@@ -140,6 +140,9 @@ class IPPixelWebsite {
   setupPortfolio() {
     const portfolioItems = document.querySelectorAll('.portfolio-item');
     const playOverlays = document.querySelectorAll('.portfolio-play-overlay');
+
+    // Setup lazy loading for videos
+    this.setupVideoLazyLoading();
 
     // Handle legacy portfolio items
     portfolioItems.forEach(item => {
@@ -211,24 +214,33 @@ class IPPixelWebsite {
     });
   }
 
-  // Animated statistics counter
+  // Optimized statistics counter
   setupStats() {
     const statNumbers = document.querySelectorAll('.stat-number');
 
     const animateCounter = (element) => {
       const target = parseInt(element.getAttribute('data-target'));
-      const increment = target / 100;
-      let current = 0;
+      const duration = 2000; // 2 seconds
+      const startTime = performance.now();
 
-      const timer = setInterval(() => {
-        current += increment;
-        element.textContent = Math.floor(current);
+      const updateCounter = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
 
-        if (current >= target) {
+        // Use easing function for smoother animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = Math.floor(easeOutQuart * target);
+
+        element.textContent = current;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        } else {
           element.textContent = target;
-          clearInterval(timer);
         }
-      }, 20);
+      };
+
+      requestAnimationFrame(updateCounter);
     };
 
     const statsObserver = new IntersectionObserver((entries) => {
@@ -238,7 +250,7 @@ class IPPixelWebsite {
           statsObserver.unobserve(entry.target);
         }
       });
-    });
+    }, { threshold: 0.5 });
 
     statNumbers.forEach(stat => {
       statsObserver.observe(stat);
@@ -329,11 +341,197 @@ class IPPixelWebsite {
       }, 3000);
     });
   }
+
+  // Spline viewer setup with error handling
+  setupSplineViewers() {
+    const loading = document.getElementById('hero-loading');
+    const desktopViewer = document.getElementById('hero-desktop-viewer');
+    const mobileViewer = document.getElementById('hero-mobile-viewer');
+    const fallback = document.getElementById('hero-fallback');
+
+    let loadTimeout;
+    let hasLoaded = false;
+
+    // Set a timeout for loading
+    loadTimeout = setTimeout(() => {
+      if (!hasLoaded) {
+        console.warn('Spline viewers taking too long to load, showing fallback');
+        this.showHeroFallback();
+      }
+    }, 8000); // 8 second timeout
+
+    // Function to show fallback
+    const showFallback = () => {
+      if (hasLoaded) return;
+      hasLoaded = true;
+      clearTimeout(loadTimeout);
+      this.showHeroFallback();
+    };
+
+    // Function to show loaded viewer
+    const showViewer = (viewer) => {
+      if (hasLoaded) return;
+      hasLoaded = true;
+      clearTimeout(loadTimeout);
+
+      if (loading) loading.style.display = 'none';
+      if (fallback) fallback.style.display = 'none';
+      viewer.style.display = 'block';
+    };
+
+    // Add error handling for both viewers
+    if (desktopViewer) {
+      desktopViewer.addEventListener('load', () => {
+        console.log('Desktop Spline viewer loaded');
+        showViewer(desktopViewer);
+      });
+
+      desktopViewer.addEventListener('error', (e) => {
+        console.error('Desktop Spline viewer failed to load:', e);
+        showFallback();
+      });
+    }
+
+    if (mobileViewer) {
+      mobileViewer.addEventListener('load', () => {
+        console.log('Mobile Spline viewer loaded');
+        showViewer(mobileViewer);
+      });
+
+      mobileViewer.addEventListener('error', (e) => {
+        console.error('Mobile Spline viewer failed to load:', e);
+        showFallback();
+      });
+    }
+
+    // Check WebGL support
+    if (!this.checkWebGLSupport()) {
+      console.warn('WebGL not supported, showing fallback');
+      showFallback();
+      return;
+    }
+
+    // Monitor for WebGL context loss
+    this.setupWebGLErrorHandling();
+  }
+
+  showHeroFallback() {
+    const loading = document.getElementById('hero-loading');
+    const desktopViewer = document.getElementById('hero-desktop-viewer');
+    const mobileViewer = document.getElementById('hero-mobile-viewer');
+    const fallback = document.getElementById('hero-fallback');
+
+    if (loading) loading.style.display = 'none';
+    if (desktopViewer) desktopViewer.style.display = 'none';
+    if (mobileViewer) mobileViewer.style.display = 'none';
+    if (fallback) fallback.style.display = 'flex';
+  }
+
+  checkWebGLSupport() {
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      return !!gl;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  setupWebGLErrorHandling() {
+    // Listen for WebGL context lost events
+    window.addEventListener('webglcontextlost', (e) => {
+      console.error('WebGL context lost:', e);
+      e.preventDefault();
+      this.showHeroFallback();
+    });
+
+    // Monitor for WebGL errors in console
+    const originalError = console.error;
+    console.error = (...args) => {
+      const message = args.join(' ');
+      if (message.includes('WebGL') || message.includes('GL_INVALID')) {
+        // WebGL error detected, consider showing fallback
+        setTimeout(() => {
+          const loading = document.getElementById('hero-loading');
+          if (loading && loading.style.display !== 'none') {
+            this.showHeroFallback();
+          }
+        }, 2000);
+      }
+      originalError.apply(console, args);
+    };
+  }
+
+  // Video lazy loading functionality
+  setupVideoLazyLoading() {
+    const videos = document.querySelectorAll('.portfolio-video[data-src]');
+
+    // Intersection Observer for lazy loading
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = entry.target;
+          this.loadVideo(video);
+          videoObserver.unobserve(video);
+        }
+      });
+    }, {
+      rootMargin: '50px 0px',
+      threshold: 0.1
+    });
+
+    videos.forEach(video => {
+      videoObserver.observe(video);
+    });
+  }
+
+  loadVideo(video) {
+    const dataSrc = video.getAttribute('data-src');
+    const source = video.querySelector('source[data-src]');
+
+    if (dataSrc) {
+      video.src = dataSrc;
+      video.removeAttribute('data-src');
+    }
+
+    if (source && source.getAttribute('data-src')) {
+      source.src = source.getAttribute('data-src');
+      source.removeAttribute('data-src');
+    }
+
+    // Preload metadata only when needed
+    video.preload = 'metadata';
+
+    // Add error handling
+    video.addEventListener('error', (e) => {
+      console.warn('Video failed to load:', video.src, e);
+      // Hide play overlay if video fails
+      const overlay = video.parentElement.querySelector('.portfolio-play-overlay');
+      if (overlay) {
+        overlay.style.display = 'none';
+      }
+    });
+
+    video.addEventListener('loadedmetadata', () => {
+      console.log('Video metadata loaded:', video.src);
+    });
+  }
 }
 
 // Initialize the website when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new IPPixelWebsite();
+
+  // Register service worker for caching
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('Service Worker registered:', registration);
+      })
+      .catch((error) => {
+        console.log('Service Worker registration failed:', error);
+      });
+  }
 });
 
 // Smooth scrolling for anchor links

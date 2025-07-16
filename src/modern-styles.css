@@ -331,6 +331,85 @@ a:hover {
   position: relative;
   height: 100vh;
   overflow: hidden;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 25%, #bf0f0f 50%, #1a0a0a 75%, #0a0a0a 100%);
+}
+
+/* Hero Loading State */
+.hero-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-primary);
+  z-index: 10;
+  transition: opacity 0.5s ease;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(191, 15, 15, 0.3);
+  border-top: 3px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.hero-loading p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Hero Fallback */
+.hero-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 25%, #bf0f0f 50%, #1a0a0a 75%, #0a0a0a 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+  z-index: 5;
+}
+
+.hero-fallback-content {
+  text-align: center;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.hero-fallback-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  color: white;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.hero-fallback-subtitle {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.hero-fallback-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* Base styles for all Spline viewers */
@@ -340,6 +419,9 @@ a:hover {
   height: 100vh;
   border: none;
   outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* Desktop Spline Scene - Show on larger screens */
@@ -399,6 +481,27 @@ a:hover {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Add will-change property for better performance */
+.hero-fallback {
+  will-change: background-position;
+}
+
+.loading-spinner {
+  will-change: transform;
+}
+
+/* Optimized animation classes */
+.animate-ready {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
 .hero-overlay {
@@ -513,27 +616,27 @@ a:hover {
 }
 */
 
-/* Animations */
+/* Optimized Animations - Use transform3d for hardware acceleration */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 30px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
-    transform: translateX(-50%) translateY(0);
+    transform: translate3d(-50%, 0, 0);
   }
   40% {
-    transform: translateX(-50%) translateY(-10px);
+    transform: translate3d(-50%, -10px, 0);
   }
   60% {
-    transform: translateX(-50%) translateY(-5px);
+    transform: translate3d(-50%, -5px, 0);
   }
 }
 
@@ -1005,7 +1108,7 @@ section {
   margin-top: 3rem;
 }
 
-/* Service Cards */
+/* Service Cards - Optimized */
 .service-card-brutalist {
   background: var(--card-bg);
   color: var(--text-primary);
@@ -1013,9 +1116,10 @@ section {
   position: relative;
   border: 4px solid var(--border-color);
   transform: rotate(-1.5deg);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   box-shadow: 0 6px 0 var(--border-color);
   overflow: hidden;
+  will-change: transform;
 }
 
 .service-card-brutalist:nth-child(even) {
@@ -1023,7 +1127,7 @@ section {
 }
 
 .service-card-brutalist:hover {
-  transform: rotate(0deg) translateY(-8px);
+  transform: rotate(0deg) translate3d(0, -8px, 0);
   box-shadow: 12px 12px 0 var(--accent-primary);
   border-color: var(--accent-primary);
 }
@@ -1047,7 +1151,7 @@ section {
 }
 
 .service-card-brutalist:hover .service-icon-brutalist {
-  transform: scale(1.15) rotate(15deg);
+  transform: scale3d(1.15, 1.15, 1) rotate(15deg);
   border-color: var(--accent-primary);
   background: var(--border-color);
   color: var(--accent-primary);
@@ -1158,14 +1262,15 @@ section {
   z-index: 1;
 }
 
-/* Portfolio Cards */
+/* Portfolio Cards - Optimized transforms */
 .portfolio-card-brutalist {
   background: var(--card-bg);
   border: 4px solid var(--border-color);
   transform: rotate(-1deg);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
+  will-change: transform;
 }
 
 .portfolio-card-brutalist:nth-child(even) {
@@ -1173,7 +1278,7 @@ section {
 }
 
 .portfolio-card-brutalist:hover {
-  transform: rotate(0deg) translateY(-8px);
+  transform: rotate(0deg) translate3d(0, -8px, 0);
   border-color: var(--accent-primary);
   box-shadow: 8px 8px 0 var(--accent-primary);
 }
@@ -1193,7 +1298,8 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-normal);
+  transition: transform 0.3s ease;
+  will-change: transform;
 }
 
 .portfolio-play-overlay {
@@ -1216,7 +1322,7 @@ section {
 }
 
 .portfolio-card-brutalist:hover .portfolio-video {
-  transform: scale(1.05);
+  transform: scale3d(1.05, 1.05, 1);
 }
 
 .portfolio-play-button {
