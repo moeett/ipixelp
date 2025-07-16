@@ -274,12 +274,18 @@ a:hover {
 .hero {
   position: relative;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
+.hero spline-viewer {
+  width: 100%;
+  height: 100vh;
+  display: block;
+  border: none;
+  outline: none;
+}
+
+/* Old hero styles - commented out since we're using full Spline embed
 .hero-3d-background {
   position: absolute;
   top: 0;
@@ -338,7 +344,9 @@ a:hover {
   z-index: 1;
   pointer-events: none;
 }
+*/
 
+/* Hero content styles - commented out for full Spline embed
 .hero-content {
   text-align: center;
   max-width: 900px;
@@ -347,7 +355,9 @@ a:hover {
   position: relative;
   z-index: 10;
 }
+*/
 
+/*
 .hero-title {
   margin-bottom: var(--spacing-lg);
 }
@@ -371,7 +381,9 @@ a:hover {
   color: var(--text-secondary);
   line-height: 1.6;
 }
+*/
 
+/*
 .hero-stats {
   display: flex;
   justify-content: center;
@@ -432,6 +444,7 @@ a:hover {
   background: var(--accent-gradient);
   border-radius: 1px;
 }
+*/
 
 /* Animations */
 @keyframes fadeInUp {
