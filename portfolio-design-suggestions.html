@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Portfolio Section Design Suggestions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-red: #bf0f0f;
+            --brand-red-light: #e01515;
+            --black: #000000;
+            --white: #ffffff;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #333333;
+            --gray-light: #666666;
+            --gray-lighter: #f8f8f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--brand-red);
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--gray-light);
+            font-size: 1.1rem;
+        }
+
+        .design-section {
+            margin-bottom: 6rem;
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--gray-medium);
+            position: relative;
+        }
+
+        .design-title {
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            background: var(--brand-red);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--brand-red);
+            margin-bottom: 0.5rem;
+            text-transform: lowercase;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+        }
+
+        .video-placeholder {
+            background: var(--gray-dark);
+            border: 2px solid var(--brand-red);
+            border-radius: 8px;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-light);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder::before {
+            content: '▶';
+            position: absolute;
+            font-size: 3rem;
+            color: var(--brand-red);
+            opacity: 0.7;
+        }
+
+        .video-placeholder:hover {
+            border-color: var(--brand-red-light);
+            transform: scale(1.02);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--brand-red);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--brand-red);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--brand-red);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(191, 15, 15, 0.3);
+        }
+
+        /* Design 1: Classic Grid */
+        .design-1 .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .design-1 .portfolio-grid .video-item:first-child {
+            grid-column: span 2;
+        }
+
+        .design-1 .cta-container {
+            text-align: center;
+        }
+
+        /* Design 2: Masonry Layout */
+        .design-2 .portfolio-masonry {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-auto-rows: 200px;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .design-2 .video-item:nth-child(1) { grid-row: span 2; }
+        .design-2 .video-item:nth-child(3) { grid-row: span 2; }
+        .design-2 .video-item:nth-child(5) { grid-row: span 2; }
+
+        .design-2 .cta-container {
+            text-align: center;
+        }
+
+        /* Design 3: Carousel Style */
+        .design-3 .portfolio-carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+            scroll-snap-type: x mandatory;
+        }
+
+        .design-3 .video-item {
+            min-width: 350px;
+            scroll-snap-align: start;
+        }
+
+        .design-3 .cta-container {
+            text-align: center;
+        }
+
+        /* Design 4: Featured + Grid */
+        .design-4 .portfolio-featured {
+            margin-bottom: 3rem;
+        }
+
+        .design-4 .featured-video {
+            margin-bottom: 2rem;
+        }
+
+        .design-4 .portfolio-grid-small {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .design-4 .cta-container {
+            text-align: center;
+        }
+
+        /* Design 5: Hexagon Grid */
+        .design-5 .portfolio-hex {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+            justify-items: center;
+        }
+
+        .design-5 .hex-video {
+            width: 250px;
+            height: 250px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: var(--gray-dark);
+            border: 3px solid var(--brand-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .design-5 .hex-video:hover {
+            transform: scale(1.05);
+        }
+
+        .design-5 .cta-container {
+            text-align: center;
+        }
+
+        /* Design 6: Split Layout */
+        .design-6 .portfolio-split {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .design-6 .split-left {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .design-6 .split-right {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .design-6 .cta-container {
+            text-align: center;
+        }
+
+        /* Design 7: Timeline Layout */
+        .design-7 .portfolio-timeline {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 3rem;
+        }
+
+        .design-7 .timeline-line {
+            position: absolute;
+            left: 1.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--brand-red);
+        }
+
+        .design-7 .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .design-7 .timeline-dot {
+            position: absolute;
+            left: -2.5rem;
+            top: 1rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--brand-red);
+            border-radius: 50%;
+            border: 3px solid var(--black);
+        }
+
+        .design-7 .cta-container {
+            text-align: center;
+        }
+
+        /* Design 8: Circular Layout */
+        .design-8 .portfolio-circle {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 3rem auto;
+        }
+
+        .design-8 .center-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .design-8 .circle-video {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .design-8 .circle-video:nth-child(2) { top: 0; left: 50%; transform: translateX(-50%); }
+        .design-8 .circle-video:nth-child(3) { top: 25%; right: 0; }
+        .design-8 .circle-video:nth-child(4) { bottom: 25%; right: 0; }
+        .design-8 .circle-video:nth-child(5) { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .design-8 .circle-video:nth-child(6) { bottom: 25%; left: 0; }
+        .design-8 .circle-video:nth-child(7) { top: 25%; left: 0; }
+
+        .design-8 .cta-container {
+            text-align: center;
+        }
+
+        /* Design 9: Tabs Interface */
+        .design-9 .portfolio-tabs {
+            margin-bottom: 3rem;
+        }
+
+        .design-9 .tab-headers {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--gray-medium);
+        }
+
+        .design-9 .tab-header {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .design-9 .tab-header.active {
+            color: var(--brand-red);
+            border-bottom-color: var(--brand-red);
+        }
+
+        .design-9 .tab-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .design-9 .cta-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* Design 10: Brutalist Cards */
+        .design-10 .portfolio-brutalist {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .design-10 .brutalist-video {
+            background: var(--gray-lighter);
+            border: 4px solid var(--black);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .design-10 .brutalist-video:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .design-10 .brutalist-video:hover {
+            transform: rotate(0deg) translateY(-5px);
+            box-shadow: 8px 8px 0 var(--brand-red);
+        }
+
+        .design-10 .brutalist-video .video-placeholder {
+            background: var(--gray-lighter);
+            color: var(--black);
+            border: none;
+        }
+
+        .design-10 .brutalist-corner {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-bottom: 20px solid var(--brand-red);
+        }
+
+        .design-10 .cta-container {
+            text-align: center;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .design-1 .portfolio-grid,
+            .design-4 .portfolio-grid-small,
+            .design-9 .tab-content,
+            .design-10 .portfolio-brutalist {
+                grid-template-columns: 1fr;
+            }
+
+            .design-1 .portfolio-grid .video-item:first-child {
+                grid-column: span 1;
+            }
+
+            .design-2 .portfolio-masonry {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 200px;
+            }
+
+            .design-2 .video-item:nth-child(1),
+            .design-2 .video-item:nth-child(3),
+            .design-2 .video-item:nth-child(5) {
+                grid-row: span 1;
+            }
+
+            .design-3 .video-item {
+                min-width: 280px;
+            }
+
+            .design-5 .portfolio-hex {
+                grid-template-columns: 1fr;
+            }
+
+            .design-5 .hex-video {
+                width: 200px;
+                height: 200px;
+            }
+
+            .design-6 .portfolio-split {
+                grid-template-columns: 1fr;
+            }
+
+            .design-6 .split-right {
+                grid-template-columns: 1fr;
+            }
+
+            .design-7 .portfolio-timeline {
+                padding-left: 2rem;
+            }
+
+            .design-7 .timeline-dot {
+                left: -1.5rem;
+                width: 0.8rem;
+                height: 0.8rem;
+            }
+
+            .design-8 .portfolio-circle {
+                width: 300px;
+                height: 300px;
+            }
+
+            .design-8 .center-video {
+                width: 100px;
+                height: 100px;
+            }
+
+            .design-8 .circle-video {
+                width: 80px;
+                height: 80px;
+            }
+
+            .design-9 .tab-headers {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .design-10 .brutalist-video {
+                transform: rotate(0deg);
+            }
+
+            .design-10 .brutalist-video:nth-child(even) {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Portfolio Section Design Suggestions</h1>
+        <p class="intro">Here are 10 modern, responsive design approaches for "Nos dernières réalisations" featuring 6 videos and a CTA button.</p>
+        
+        <!-- Design 1: Classic Grid -->
+        <div class="design-section design-1">
+            <div class="design-title">Design 1: Classic Grid</div>
+            <div class="section-header">
+                <h2>Nos dernières réalisations</h2>
+                <p>Découvrez notre savoir-faire à travers nos projets récents</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 1 - Featured</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 2</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 3</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 4</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 5</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 6</div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+
+        <!-- Design 2: Masonry Layout -->
+        <div class="design-section design-2">
+            <div class="design-title">Design 2: Masonry Layout</div>
+            <div class="section-header">
+                <h2>Ce qu'on a créé</h2>
+                <p>Un aperçu de notre créativité en action</p>
+            </div>
+            <div class="portfolio-masonry">
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 1</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 2</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 3</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 4</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 5</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 6</div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+
+        <!-- Design 3: Carousel Style -->
+        <div class="design-section design-3">
+            <div class="design-title">Design 3: Carousel Style</div>
+            <div class="section-header">
+                <h2>Nos derniers projets</h2>
+                <p>Faites défiler pour découvrir notre portfolio</p>
+            </div>
+            <div class="portfolio-carousel">
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 1</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 2</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 3</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 4</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 5</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">Vidéo 6</div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+
+        <!-- Design 4: Featured + Grid -->
+        <div class="design-section design-4">
+            <div class="design-title">Design 4: Featured + Grid</div>
+            <div class="section-header">
+                <h2>Nos réalisations phares</h2>
+                <p>Le meilleur de notre travail en avant-première</p>
+            </div>
+            <div class="portfolio-featured">
+                <div class="featured-video">
+                    <div class="video-placeholder">Vidéo Featured - Projet Principal</div>
+                </div>
+                <div class="portfolio-grid-small">
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 2</div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 3</div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 4</div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 5</div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 6</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+
+        <!-- Design 5: Hexagon Grid -->
+        <div class="design-section design-5">
+            <div class="design-title">Design 5: Hexagon Grid</div>
+            <div class="section-header">
+                <h2>Portfolio créatif</h2>
+                <p>Une approche géométrique de nos réalisations</p>
+            </div>
+            <div class="portfolio-hex">
+                <div class="hex-video">
+                    <div class="video-placeholder">Vidéo 1</div>
+                </div>
+                <div class="hex-video">
+                    <div class="video-placeholder">Vidéo 2</div>
+                </div>
+                <div class="hex-video">
+                    <div class="video-placeholder">Vidéo 3</div>
+                </div>
+                <div class="hex-video">
+                    <div class="video-placeholder">Vidéo 4</div>
+                </div>
+                <div class="hex-video">
+                    <div class="video-placeholder">Vidéo 5</div>
+                </div>
+                <div class="hex-video">
+                    <div class="video-placeholder">Vidéo 6</div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+
+        <!-- Design 6: Split Layout -->
+        <div class="design-section design-6">
+            <div class="design-title">Design 6: Split Layout</div>
+            <div class="section-header">
+                <h2>Nos créations récentes</h2>
+                <p>Deux perspectives sur notre travail</p>
+            </div>
+            <div class="portfolio-split">
+                <div class="split-left">
+                    <div class="video-item large">
+                        <div class="video-placeholder">Vidéo Principale</div>
+                    </div>
+                    <div class="video-item large">
+                        <div class="video-placeholder">Vidéo Secondaire</div>
+                    </div>
+                </div>
+                <div class="split-right">
+                    <div class="video-item small">
+                        <div class="video-placeholder">Vidéo 3</div>
+                    </div>
+                    <div class="video-item small">
+                        <div class="video-placeholder">Vidéo 4</div>
+                    </div>
+                    <div class="video-item small">
+                        <div class="video-placeholder">Vidéo 5</div>
+                    </div>
+                    <div class="video-item small">
+                        <div class="video-placeholder">Vidéo 6</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+
+        <!-- Design 7: Timeline Layout -->
+        <div class="design-section design-7">
+            <div class="design-title">Design 7: Timeline Layout</div>
+            <div class="section-header">
+                <h2>Notre parcours créatif</h2>
+                <p>L'évolution de nos réalisations dans le temps</p>
+            </div>
+            <div class="portfolio-timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="video-placeholder">Vidéo 1 - Janvier 2024</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="video-placeholder">Vidéo 2 - Février 2024</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="video-placeholder">Vidéo 3 - Mars 2024</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="video-placeholder">Vidéo 4 - Avril 2024</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="video-placeholder">Vidéo 5 - Mai 2024</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="video-placeholder">Vidéo 6 - Juin 2024</div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+
+        <!-- Design 8: Circular Layout -->
+        <div class="design-section design-8">
+            <div class="design-title">Design 8: Circular Layout</div>
+            <div class="section-header">
+                <h2>Univers créatif</h2>
+                <p>Nos réalisations gravitent autour de l'excellence</p>
+            </div>
+            <div class="portfolio-circle">
+                <div class="center-video">
+                    <div class="video-placeholder">Vidéo Centrale</div>
+                </div>
+                <div class="circle-video">
+                    <div class="video-placeholder">Vidéo 2</div>
+                </div>
+                <div class="circle-video">
+                    <div class="video-placeholder">Vidéo 3</div>
+                </div>
+                <div class="circle-video">
+                    <div class="video-placeholder">Vidéo 4</div>
+                </div>
+                <div class="circle-video">
+                    <div class="video-placeholder">Vidéo 5</div>
+                </div>
+                <div class="circle-video">
+                    <div class="video-placeholder">Vidéo 6</div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+
+        <!-- Design 9: Tabs Interface -->
+        <div class="design-section design-9">
+            <div class="design-title">Design 9: Tabs Interface</div>
+            <div class="section-header">
+                <h2>Nos réalisations par catégorie</h2>
+                <p>Explorez notre portfolio organisé par thématiques</p>
+            </div>
+            <div class="portfolio-tabs">
+                <div class="tab-headers">
+                    <button class="tab-header active">Récents</button>
+                    <button class="tab-header">Populaires</button>
+                    <button class="tab-header">Primés</button>
+                </div>
+                <div class="tab-content">
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 1</div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 2</div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 3</div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 4</div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 5</div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-placeholder">Vidéo 6</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+
+        <!-- Design 10: Brutalist Cards -->
+        <div class="design-section design-10">
+            <div class="design-title">Design 10: Brutalist Cards</div>
+            <div class="section-header">
+                <h2>Portfolio brut</h2>
+                <p>L'authenticité de nos créations sans filtre</p>
+            </div>
+            <div class="portfolio-brutalist">
+                <div class="brutalist-video">
+                    <div class="video-placeholder">Vidéo 1</div>
+                    <div class="brutalist-corner"></div>
+                </div>
+                <div class="brutalist-video">
+                    <div class="video-placeholder">Vidéo 2</div>
+                    <div class="brutalist-corner"></div>
+                </div>
+                <div class="brutalist-video">
+                    <div class="video-placeholder">Vidéo 3</div>
+                    <div class="brutalist-corner"></div>
+                </div>
+                <div class="brutalist-video">
+                    <div class="video-placeholder">Vidéo 4</div>
+                    <div class="brutalist-corner"></div>
+                </div>
+                <div class="brutalist-video">
+                    <div class="video-placeholder">Vidéo 5</div>
+                    <div class="brutalist-corner"></div>
+                </div>
+                <div class="brutalist-video">
+                    <div class="video-placeholder">Vidéo 6</div>
+                    <div class="brutalist-corner"></div>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="cta-button">Voir Tous Les Réalisations</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

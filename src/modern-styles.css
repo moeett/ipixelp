@@ -912,204 +912,126 @@ section {
 /* Services Section - Brutalist Design */
 .services-brutalist {
   padding: 6rem 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
 }
 
-/* Services Headers */
-.services-header-white {
+/* Services Header */
+.services-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
-.services-header-white h2 {
-  font-size: 2.5rem;
+.services-header h2 {
+  font-size: 2.8rem;
   font-weight: 800;
-  color: #bf0f0f;
-  margin-bottom: 0.5rem;
+  color: var(--accent-primary);
+  margin-bottom: 0.8rem;
   text-transform: lowercase;
+  letter-spacing: -1px;
 }
 
-.services-header-white p {
-  font-size: 1.1rem;
-  color: #666;
+.services-header p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
   font-weight: 400;
-}
-
-.services-header-dark {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.services-header-dark h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #bf0f0f;
-  margin-bottom: 0.5rem;
-  text-transform: lowercase;
-}
-
-.services-header-dark p {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* Services Grid */
 .services-grid-brutalist {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
   margin-top: 3rem;
 }
 
-/* White Theme Services */
-.services-white {
-  background: #f8f8f8;
-  color: #1a1a1a;
-  padding: 4rem 0;
-}
-
-.service-card-white {
-  background: #ffffff;
-  color: #1a1a1a;
-  padding: 2rem;
+/* Service Cards */
+.service-card-brutalist {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  padding: 2.5rem;
   position: relative;
-  border: 4px solid #1a1a1a;
-  transform: rotate(-1deg);
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 0 #1a1a1a;
+  border: 4px solid var(--border-color);
+  transform: rotate(-1.5deg);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 6px 0 var(--border-color);
+  overflow: hidden;
 }
 
-.service-card-white:nth-child(even) {
-  transform: rotate(1deg);
+.service-card-brutalist:nth-child(even) {
+  transform: rotate(1.5deg);
 }
 
-.service-card-white:hover {
-  transform: rotate(0deg) translateY(-5px);
-  box-shadow: 8px 8px 0 #bf0f0f;
+.service-card-brutalist:hover {
+  transform: rotate(0deg) translateY(-8px);
+  box-shadow: 12px 12px 0 var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
-.service-icon-white {
+/* Service Icons */
+.service-icon-brutalist {
   position: absolute;
-  top: -15px;
-  right: -15px;
-  background: #bf0f0f;
-  color: #ffffff;
-  width: 3.5rem;
-  height: 3.5rem;
+  top: -18px;
+  right: -18px;
+  background: var(--accent-primary);
+  color: var(--white);
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid #1a1a1a;
-  transition: all 0.3s ease;
+  border: 4px solid var(--border-color);
+  transition: all 0.4s ease;
+  z-index: 2;
 }
 
-.service-card-white:hover .service-icon-white {
-  transform: scale(1.1) rotate(10deg);
+.service-card-brutalist:hover .service-icon-brutalist {
+  transform: scale(1.15) rotate(15deg);
+  border-color: var(--accent-primary);
+  background: var(--border-color);
+  color: var(--accent-primary);
 }
 
-.service-card-white h3 {
-  font-size: 1.3rem;
+/* Service Content */
+.service-card-brutalist h3 {
+  font-size: 1.4rem;
   font-weight: 900;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #1a1a1a;
-  padding-right: 2rem;
+  letter-spacing: 1.2px;
+  color: var(--text-primary);
+  padding-right: 2.5rem;
+  line-height: 1.2;
 }
 
-.service-card-white p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #2a2a2a;
+.service-card-brutalist p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  font-weight: 400;
 }
 
-.service-corner-white {
+/* Service Corner Accent */
+.service-corner {
   position: absolute;
   bottom: 0;
   right: 0;
   width: 0;
   height: 0;
-  border-left: 20px solid transparent;
-  border-bottom: 20px solid #bf0f0f;
-}
-
-/* Dark Theme Services */
-.services-dark {
-  background: #1a1a1a;
-  color: #f0f0f0;
-  padding: 4rem 0;
-}
-
-.service-card-dark {
-  background: #f8f8f8;
-  color: #1a1a1a;
-  padding: 2rem;
-  position: relative;
-  border: 4px solid #1a1a1a;
-  transform: rotate(-1deg);
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 0 #1a1a1a;
-}
-
-.service-card-dark:nth-child(even) {
-  transform: rotate(1deg);
-}
-
-.service-card-dark:hover {
-  transform: rotate(0deg) translateY(-5px);
-  box-shadow: 8px 8px 0 #bf0f0f;
-}
-
-.service-icon-dark {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  background: #bf0f0f;
-  color: #ffffff;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #1a1a1a;
+  border-left: 25px solid transparent;
+  border-bottom: 25px solid var(--accent-primary);
   transition: all 0.3s ease;
 }
 
-.service-card-dark:hover .service-icon-dark {
-  transform: scale(1.1) rotate(10deg);
+.service-card-brutalist:hover .service-corner {
+  border-bottom-color: var(--border-color);
 }
 
-.service-card-dark h3 {
-  font-size: 1.3rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #1a1a1a;
-  padding-right: 2rem;
-}
 
-.service-card-dark p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #2a2a2a;
-}
-
-.service-corner-dark {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-bottom: 20px solid #bf0f0f;
-}
 
 /* Services Section */
 .services {
@@ -1780,35 +1702,47 @@ section {
   }
 
   /* Mobile fixes for Services Brutalist section */
+  .services-brutalist {
+    padding: 4rem 0;
+  }
+
+  .services-header h2 {
+    font-size: 2.2rem;
+  }
+
+  .services-header p {
+    font-size: 1rem;
+  }
+
   .services-grid-brutalist {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
-  .service-card-white,
-  .service-card-dark {
+  .service-card-brutalist {
     transform: rotate(0deg);
     margin: 0 1rem;
+    padding: 2rem;
   }
 
-  .service-card-white:nth-child(even),
-  .service-card-dark:nth-child(even) {
+  .service-card-brutalist:nth-child(even) {
     transform: rotate(0deg);
   }
 
-  .service-card-white:hover,
-  .service-card-dark:hover {
-    transform: translateY(-3px);
+  .service-card-brutalist:hover {
+    transform: translateY(-5px);
   }
 
-  .services-header-white h2,
-  .services-header-dark h2 {
-    font-size: 2rem;
+  .service-icon-brutalist {
+    width: 3.5rem;
+    height: 3.5rem;
+    top: -15px;
+    right: -15px;
   }
 
-  .services-white,
-  .services-dark {
-    padding: 3rem 0;
+  .service-card-brutalist h3 {
+    font-size: 1.2rem;
+    padding-right: 2rem;
   }
 
   .navbar {
