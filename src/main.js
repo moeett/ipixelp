@@ -139,7 +139,9 @@ class IPPixelWebsite {
   // Portfolio functionality
   setupPortfolio() {
     const portfolioItems = document.querySelectorAll('.portfolio-item');
+    const playOverlays = document.querySelectorAll('.portfolio-play-overlay');
 
+    // Handle legacy portfolio items
     portfolioItems.forEach(item => {
       const playButton = item.querySelector('.portfolio-play');
 
@@ -147,6 +149,65 @@ class IPPixelWebsite {
         // Here you would implement video modal or redirect
         console.log('Play video for:', item.querySelector('.portfolio-title')?.textContent);
       });
+    });
+
+    // Handle new video portfolio items
+    playOverlays.forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        e.preventDefault();
+        const video = this.parentElement.querySelector('.portfolio-video');
+
+        if (video.paused) {
+          // Pause all other videos first
+          document.querySelectorAll('.portfolio-video').forEach(v => {
+            if (v !== video) {
+              v.pause();
+              v.parentElement.querySelector('.portfolio-play-overlay').style.opacity = '0';
+            }
+          });
+
+          // Play this video
+          video.play();
+          this.style.opacity = '0';
+
+          // Show overlay again when video ends
+          video.addEventListener('ended', () => {
+            this.style.opacity = '1';
+          });
+
+          // Show overlay when video is paused
+          video.addEventListener('pause', () => {
+            if (!video.ended) {
+              this.style.opacity = '1';
+            }
+          });
+
+        } else {
+          video.pause();
+          this.style.opacity = '1';
+        }
+      });
+    });
+
+    // Handle video hover effects
+    const portfolioCards = document.querySelectorAll('.portfolio-card-brutalist');
+    portfolioCards.forEach(card => {
+      const video = card.querySelector('.portfolio-video');
+      const overlay = card.querySelector('.portfolio-play-overlay');
+
+      if (video && overlay) {
+        card.addEventListener('mouseenter', () => {
+          if (video.paused) {
+            overlay.style.opacity = '1';
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          if (video.paused) {
+            overlay.style.opacity = '0';
+          }
+        });
+      }
     });
   }
 
