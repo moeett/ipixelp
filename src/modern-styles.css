@@ -277,21 +277,22 @@ a:hover {
   overflow: hidden;
 }
 
-.hero spline-viewer {
+/* Base styles for all Spline viewers */
+.hero .hero-desktop,
+.hero .hero-mobile {
   width: 100%;
   height: 100vh;
-  display: block;
   border: none;
   outline: none;
 }
 
 /* Desktop Spline Scene - Show on larger screens */
-.hero-desktop {
+.hero .hero-desktop {
   display: block;
 }
 
 /* Mobile Spline Scene - Hide on larger screens */
-.hero-mobile {
+.hero .hero-mobile {
   display: none;
 }
 
@@ -1403,15 +1404,19 @@ section {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  /* Hero Section - Switch to mobile Spline scene */
-  .hero-desktop {
-    display: none;
+/* Mobile-specific media query for Spline scenes */
+@media (max-width: 480px) {
+  /* Hero Section - Switch to mobile Spline scene on phones */
+  .hero .hero-desktop {
+    display: none !important;
   }
 
-  .hero-mobile {
-    display: block;
+  .hero .hero-mobile {
+    display: block !important;
   }
+}
+
+@media (max-width: 768px) {
 
   .navbar {
     padding: var(--spacing-sm) var(--spacing-md);
