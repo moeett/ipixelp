@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="International Pixel Production - Société de production audiovisuelle en Tunisie. Services de production vidéo, film corporate, motion design depuis 2013." />
+    <title>International Pixel Production - Agence Production Audiovisuelle Tunisie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://prod.spline.design">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preconnect" href="https://unpkg.com">
+
+    <!-- DNS prefetch for better performance -->
+    <link rel="dns-prefetch" href="https://prod.spline.design">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+    <!-- Preload critical resources -->
+    <link rel="modulepreload" href="/src/main.js">
+    <link rel="preload" href="/src/style.css" as="style">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.31/build/spline-viewer.js" defer></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Navigation -->
+      <nav class="navbar">
+        <div class="nav-container">
+          <div class="nav-logo">
+            <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+              <!-- Logo Icon -->
+              <rect x="10" y="15" width="8" height="8" class="logo-icon" rx="2"/>
+              <rect x="22" y="15" width="8" height="8" class="logo-icon" rx="2"/>
+              <rect x="34" y="15" width="8" height="8" class="logo-icon" rx="2"/>
+              <rect x="10" y="27" width="8" height="8" class="logo-icon" rx="2"/>
+              <rect x="22" y="27" width="8" height="8" class="logo-icon" rx="2"/>
+              <rect x="34" y="27" width="8" height="8" class="logo-icon" rx="2"/>
+              <rect x="10" y="39" width="8" height="8" class="logo-icon" rx="2"/>
+              <rect x="22" y="39" width="8" height="8" class="logo-icon" rx="2"/>
+              <rect x="34" y="39" width="8" height="8" class="logo-icon" rx="2"/>
+
+              <!-- Text -->
+              <text x="55" y="25" font-family="Inter, sans-serif" font-size="14" font-weight="700" class="logo-text-primary">INTERNATIONAL</text>
+              <text x="55" y="40" font-family="Inter, sans-serif" font-size="14" font-weight="700" class="logo-text-secondary">PIXEL PRODUCTION</text>
+            </svg>
+          </div>
+          <div class="nav-menu" id="nav-menu">
+            <a href="#home" class="nav-link">Accueil</a>
+            <a href="#about" class="nav-link">Notre agence</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#portfolio" class="nav-link">Portfolio</a>
+            <a href="#team-brutalist" class="nav-link">Équipe</a>
+            <a href="#contact" class="nav-link">Contact</a>
+          </div>
+          <div class="nav-toggle" id="nav-toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+          <div class="theme-toggle" id="theme-toggle">
+            <span class="theme-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Hero Section with 3D Animation -->
+      <section id="home" class="hero">
+        <!-- Loading State -->
+        <div class="hero-loading" id="hero-loading">
+          <div class="loading-spinner"></div>
+          <p>Chargement de l'expérience 3D...</p>
+        </div>
+
+        <!-- Desktop Spline Scene -->
+        <spline-viewer
+          class="hero-desktop"
+          id="hero-desktop-viewer"
+          url="https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode"
+          style="display: none;">
+        </spline-viewer>
+
+        <!-- Mobile Spline Scene -->
+        <spline-viewer
+          class="hero-mobile"
+          id="hero-mobile-viewer"
+          url="https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode"
+          style="display: none;">
+        </spline-viewer>
+
+        <!-- Fallback Content -->
+        <div class="hero-fallback" id="hero-fallback" style="display: none;">
+          <div class="hero-fallback-content">
+            <h1 class="hero-fallback-title">INTERNATIONAL PIXEL PRODUCTION</h1>
+            <p class="hero-fallback-subtitle">Production audiovisuelle d'excellence depuis 2013</p>
+            <div class="hero-fallback-buttons">
+              <a href="#about" class="btn btn-primary">Découvrir</a>
+              <a href="#contact" class="btn btn-secondary">Contact</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section - Brutalist Design with Theme Support -->
+      <section id="about" class="about-brutalist">
+        <div class="container">
+          <!-- Light Theme Version -->
+          <div class="about-content about-light">
+            <div class="animated-text-about">
+              <span>Boite de production audiovisuelle</span>
+              <span style="display: none;">En Tunisie et Algérie</span>
+            </div>
+            <div class="about-description">
+              <p>Depuis 2013, International pixel production imagine et réalise des contenus audiovisuels variés. Nos compétences couvrent un large éventail de réalisations telles que le film corporate, le motion design, captation live et nous intervenons de la conception à la diffusion audiovisuelle sur tous supports.</p>
+              <br>
+              <p>Notre studio est composé d'une équipe pluridisciplinaire de concepteurs, réalisateurs, infographistes, cadreurs… afin de couvrir l'ensemble des métiers de la production audiovisuelle. Notre philosophie est d'appréhender les dernières innovations technologiques au service de la création et du design.</p>
+            </div>
+            <a href="#contact" class="cta-button-about">Notre Agence</a>
+          </div>
+
+          <!-- Dark Theme Version -->
+          <div class="about-content about-dark" style="display: none;">
+            <div class="animated-text-about">
+              <span>Boite de production audiovisuelle</span>
+              <span style="display: none;">En Tunisie et Algérie</span>
+            </div>
+            <div class="about-description">
+              <p>Depuis 2013, International pixel production imagine et réalise des contenus audiovisuels variés. Nos compétences couvrent un large éventail de réalisations telles que le film corporate, le motion design, captation live et nous intervenons de la conception à la diffusion audiovisuelle sur tous supports.</p>
+              <br>
+              <p>Notre studio est composé d'une équipe pluridisciplinaire de concepteurs, réalisateurs, infographistes, cadreurs… afin de couvrir l'ensemble des métiers de la production audiovisuelle. Notre philosophie est d'appréhender les dernières innovations technologiques au service de la création et du design.</p>
+            </div>
+            <a href="#contact" class="cta-button-about">Notre Agence</a>
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+      <!-- Stats Section - Professional Brutalist Design -->
+      <section id="stats-brutalist" class="stats-brutalist">
+        <div class="container">
+          <!-- White Theme Version -->
+          <div class="stats-content stats-light">
+            <div class="stats-header">
+              <div class="stats-badge">DEPUIS 2013</div>
+              <h2 class="stats-title">Excellence Audiovisuelle</h2>
+              <p class="stats-subtitle">Des résultats concrets qui témoignent de notre expertise</p>
+              <div class="stats-divider"></div>
+            </div>
+            <div class="stats-grid-brutalist">
+              <div class="stat-card-brutalist">
+                <div class="stat-icon">
+                  <i data-lucide="users" width="24" height="24"></i>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-number-container">
+                    <span class="stat-number" data-target="350">0</span>
+                    <span class="stat-plus">+</span>
+                  </div>
+                  <div class="stat-label">Clients Satisfaits</div>
+                  <div class="stat-description">Portefeuilles diversifiés</div>
+                </div>
+                <div class="stat-decoration"></div>
+              </div>
+              <div class="stat-card-brutalist">
+                <div class="stat-icon">
+                  <i data-lucide="star" width="24" height="24"></i>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-number-container">
+                    <span class="stat-number" data-target="92">0</span>
+                    <span class="stat-percent">%</span>
+                  </div>
+                  <div class="stat-label">Satisfaction Client</div>
+                  <div class="stat-description">Feedback positif</div>
+                </div>
+                <div class="stat-decoration"></div>
+              </div>
+              <div class="stat-card-brutalist">
+                <div class="stat-icon">
+                  <i data-lucide="video" width="24" height="24"></i>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-number-container">
+                    <span class="stat-number" data-target="146">0</span>
+                    <span class="stat-plus">+</span>
+                  </div>
+                  <div class="stat-label">Projets Livrés</div>
+                  <div class="stat-description">Productions réalisées</div>
+                </div>
+                <div class="stat-decoration"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dark Theme Version -->
+          <div class="stats-content stats-dark" style="display: none;">
+            <div class="stats-header">
+              <div class="stats-badge">DEPUIS 2013</div>
+              <h2 class="stats-title">Excellence Audiovisuelle</h2>
+              <p class="stats-subtitle">Des résultats concrets qui témoignent de notre expertise</p>
+              <div class="stats-divider"></div>
+            </div>
+            <div class="stats-grid-brutalist">
+              <div class="stat-card-brutalist">
+                <div class="stat-icon">
+                  <i data-lucide="users" width="24" height="24"></i>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-number-container">
+                    <span class="stat-number" data-target="350">0</span>
+                    <span class="stat-plus">+</span>
+                  </div>
+                  <div class="stat-label">Clients Satisfaits</div>
+                  <div class="stat-description">Portefeuilles diversifiés</div>
+                </div>
+                <div class="stat-decoration"></div>
+              </div>
+              <div class="stat-card-brutalist">
+                <div class="stat-icon">
+                  <i data-lucide="star" width="24" height="24"></i>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-number-container">
+                    <span class="stat-number" data-target="92">0</span>
+                    <span class="stat-percent">%</span>
+                  </div>
+                  <div class="stat-label">Satisfaction Client</div>
+                  <div class="stat-description">Feedback positif</div>
+                </div>
+                <div class="stat-decoration"></div>
+              </div>
+              <div class="stat-card-brutalist">
+                <div class="stat-icon">
+                  <i data-lucide="video" width="24" height="24"></i>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-number-container">
+                    <span class="stat-number" data-target="146">0</span>
+                    <span class="stat-plus">+</span>
+                  </div>
+                  <div class="stat-label">Projets Livrés</div>
+                  <div class="stat-description">Productions réalisées</div>
+                </div>
+                <div class="stat-decoration"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Services Section - Brutalist Design -->
+      <section id="services-brutalist" class="services-brutalist">
+        <div class="container">
+          <div class="services-header">
+            <h2 class="section-title">Nos services</h2>
+            <p>L'expertise qui transforme vos projets en succès</p>
+          </div>
+          <div class="services-grid-brutalist">
+            <div class="service-card-brutalist">
+              <div class="service-icon-brutalist">
+                <i data-lucide="target" width="28" height="28"></i>
+              </div>
+              <h3>CONSEIL STRATÉGIQUE</h3>
+              <p>Nous donnons de la perspective à vos chiffres grâce à une stratégie à long terme qui vous permettrait de vous démarquer de la concurrence.</p>
+              <div class="service-corner"></div>
+            </div>
+            <div class="service-card-brutalist">
+              <div class="service-icon-brutalist">
+                <i data-lucide="palette" width="28" height="28"></i>
+              </div>
+              <h3>CRÉATION</h3>
+              <p>Nos équipes créatives vous proposent des contenus originaux, adaptés à vos canaux de diffusion et à votre budget.</p>
+              <div class="service-corner"></div>
+            </div>
+            <div class="service-card-brutalist">
+              <div class="service-icon-brutalist">
+                <i data-lucide="video" width="28" height="28"></i>
+              </div>
+              <h3>PRODUCTION</h3>
+              <p>Nous vous donnons l'occasion de plonger dans une nouvelle génération d'image en 6k, en vous offrant une création sur mesure.</p>
+              <div class="service-corner"></div>
+            </div>
+            <div class="service-card-brutalist">
+              <div class="service-icon-brutalist">
+                <i data-lucide="trending-up" width="28" height="28"></i>
+              </div>
+              <h3>AMPLIFICATION</h3>
+              <p>Grâce à notre expertise en production de formats audiovisuels, nous pouvons vous accompagner jusqu'à l'amplification.</p>
+              <div class="service-corner"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- Portfolio Section - Brutalist Design -->
+      <section id="portfolio-brutalist" class="portfolio-brutalist">
+        <div class="container">
+          <div class="portfolio-header-brutalist">
+            <h2 class="section-title">portfolio brut</h2>
+            <p>L'authenticité de nos créations sans filtre</p>
+          </div>
+          <div class="portfolio-grid-brutalist">
+            <div class="portfolio-card-brutalist">
+              <div class="portfolio-image-brutalist">
+                <video
+                  class="portfolio-video"
+                  loop
+                  preload="none"
+                  muted
+                  playsinline
+                  data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752422256/COURGETTE_GRATINEE_resized_v2h2i1.mp4"
+                  poster="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752422256/COURGETTE_GRATINEE_resized_v2h2i1.jpg">
+                  <source data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752422256/COURGETTE_GRATINEE_resized_v2h2i1.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la lecture vidéo.
+                </video>
+                <div class="portfolio-play-overlay">
+                  <div class="portfolio-play-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="portfolio-corner-accent"></div>
+              </div>
+              <div class="portfolio-info">
+                <h3 class="portfolio-title">Production Culinaire</h3>
+                <p class="portfolio-category">Vidéo Corporate</p>
+              </div>
+            </div>
+            <div class="portfolio-card-brutalist">
+              <div class="portfolio-image-brutalist">
+                <video
+                  class="portfolio-video"
+                  loop
+                  preload="none"
+                  muted
+                  playsinline
+                  data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752422249/USINTIMELEC-ezgif.com-resize-video_ynbh3w.mp4"
+                  poster="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752422249/USINTIMELEC-ezgif.com-resize-video_ynbh3w.jpg">
+                  <source data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752422249/USINTIMELEC-ezgif.com-resize-video_ynbh3w.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la lecture vidéo.
+                </video>
+                <div class="portfolio-play-overlay">
+                  <div class="portfolio-play-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="portfolio-corner-accent"></div>
+              </div>
+              <div class="portfolio-info">
+                <h3 class="portfolio-title">Usintimelec</h3>
+                <p class="portfolio-category">Vidéo Industrielle</p>
+              </div>
+            </div>
+            <div class="portfolio-card-brutalist">
+              <div class="portfolio-image-brutalist">
+                <video
+                  class="portfolio-video"
+                  loop
+                  preload="none"
+                  muted
+                  playsinline
+                  data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383846/Se%CC%81quence_02_ngde3o.mp4"
+                  poster="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383846/Se%CC%81quence_02_ngde3o.jpg">
+                  <source data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383846/Se%CC%81quence_02_ngde3o.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la lecture vidéo.
+                </video>
+                <div class="portfolio-play-overlay">
+                  <div class="portfolio-play-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="portfolio-corner-accent"></div>
+              </div>
+              <div class="portfolio-info">
+                <h3 class="portfolio-title">Séquence 02</h3>
+                <p class="portfolio-category">Production Créative</p>
+              </div>
+            </div>
+            <div class="portfolio-card-brutalist">
+              <div class="portfolio-image-brutalist">
+                <video
+                  class="portfolio-video"
+                  loop
+                  preload="none"
+                  muted
+                  playsinline
+                  data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383851/FTA_rvii3j.mp4"
+                  poster="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383851/FTA_rvii3j.jpg">
+                  <source data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383851/FTA_rvii3j.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la lecture vidéo.
+                </video>
+                <div class="portfolio-play-overlay">
+                  <div class="portfolio-play-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="portfolio-corner-accent"></div>
+              </div>
+              <div class="portfolio-info">
+                <h3 class="portfolio-title">FTA</h3>
+                <p class="portfolio-category">Contenu Broadcast</p>
+              </div>
+            </div>
+            <div class="portfolio-card-brutalist">
+              <div class="portfolio-image-brutalist">
+                <video
+                  class="portfolio-video"
+                  loop
+                  preload="none"
+                  muted
+                  playsinline
+                  data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383848/Spot_TV_DZ_zvrnau.mp4"
+                  poster="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383848/Spot_TV_DZ_zvrnau.jpg">
+                  <source data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383848/Spot_TV_DZ_zvrnau.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la lecture vidéo.
+                </video>
+                <div class="portfolio-play-overlay">
+                  <div class="portfolio-play-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="portfolio-corner-accent"></div>
+              </div>
+              <div class="portfolio-info">
+                <h3 class="portfolio-title">Spot TV DZ</h3>
+                <p class="portfolio-category">Publicité Télévisée</p>
+              </div>
+            </div>
+            <div class="portfolio-card-brutalist">
+              <div class="portfolio-image-brutalist">
+                <video
+                  class="portfolio-video"
+                  loop
+                  preload="none"
+                  muted
+                  playsinline
+                  data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383849/%D8%A7%D9%84%D8%A7%D8%AA%D8%AD%D8%A7%D8%AF%D9%8F_%D8%A7%D9%84%D8%B9%D8%A7%D9%85_%D9%84%D9%84%D8%B4%D8%BA%D9%84_%D9%8A%D8%B9%D9%84%D9%86_%D8%B9%D9%86_%D8%AA%D9%84%D9%82%D9%8A%D9%8E%D9%87%D9%8F_%D8%B9%D8%B1%D8%B6%D8%A7_%D9%85%D9%86_%D8%A7%D9%84%D8%AD%D9%83%D9%88%D9%85%D8%A9_%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%85_%D8%AD%D9%88%D8%A7%D8%B1_%D8%A8%D9%8A%D9%86_%D8%A7%D9%84%D8%B7%D8%B1%D9%81%D9%8A%D9%86_numhg4.mp4"
+                  poster="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383849/%D8%A7%D9%84%D8%A7%D8%AA%D8%AD%D8%A7%D8%AF%D9%8F_%D8%A7%D9%84%D8%B9%D8%A7%D9%85_%D9%84%D9%84%D8%B4%D8%BA%D9%84_%D9%8A%D8%B9%D9%84%D9%86_%D8%B9%D9%86_%D8%AA%D9%84%D9%82%D9%8A%D9%8E%D9%87%D9%8F_%D8%B9%D8%B1%D8%B6%D8%A7_%D9%85%D9%86_%D8%A7%D9%84%D8%AD%D9%83%D9%88%D9%85%D8%A9_%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%85_%D8%AD%D9%88%D8%A7%D8%B1_%D8%A8%D9%8A%D9%86_%D8%A7%D9%84%D8%B7%D8%B1%D9%81%D9%8A%D9%86_numhg4.jpg">
+                  <source data-src="https://res.cloudinary.com/dkkcq8y6p/video/upload/v1752383849/%D8%A7%D9%84%D8%A7%D8%AA%D8%AD%D8%A7%D8%AF%D9%8F_%D8%A7%D9%84%D8%B9%D8%A7%D9%85_%D9%84%D9%84%D8%B4%D8%BA%D9%84_%D9%8A%D8%B9%D9%84%D9%86_%D8%B9%D9%86_%D8%AA%D9%84%D9%82%D9%8A%D9%8E%D9%87%D9%8F_%D8%B9%D8%B1%D8%B6%D8%A7_%D9%85%D9%86_%D8%A7%D9%84%D8%AD%D9%83%D9%88%D9%85%D8%A9_%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%85_%D8%AD%D9%88%D8%A7%D8%B1_%D8%A8%D9%8A%D9%86_%D8%A7%D9%84%D8%B7%D8%B1%D9%81%D9%8A%D9%86_numhg4.mp4" type="video/mp4">
+                  Votre navigateur ne supporte pas la lecture vidéo.
+                </video>
+                <div class="portfolio-play-overlay">
+                  <div class="portfolio-play-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="portfolio-corner-accent"></div>
+              </div>
+              <div class="portfolio-info">
+                <h3 class="portfolio-title">Actualités</h3>
+                <p class="portfolio-category">Contenu Journalistique</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-cta-brutalist">
+            <button class="btn-brutalist">VOIR TOUS LES RÉALISATIONS</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team Section - Brutalist Design -->
+      <section id="team-brutalist" class="team-brutalist">
+        <div class="container">
+          <div class="team-header-brutalist">
+            <div class="team-badge">NOTRE ÉQUIPE</div>
+            <h2 class="section-title">équipe créative</h2>
+            <p>Les talents qui donnent vie à vos projets</p>
+          </div>
+          <div class="team-grid-brutalist">
+            <div class="team-card-brutalist">
+              <div class="team-image-brutalist">
+                <div class="team-placeholder">KB</div>
+                <div class="team-corner-accent"></div>
+              </div>
+              <div class="team-info">
+                <h3 class="team-name">Khalif Boss</h3>
+                <p class="team-role">Founder / CEO Ipixelp</p>
+                <p class="team-description">De père en fils, oui, et c'est mon papa qui a mis ma photo ici, je suis le futur boss de cette boite audiovisuelle. Puisque le domaine de l'audiovisuelle ça coule dans le sang depuis 20 ans.</p>
+              </div>
+            </div>
+            <div class="team-card-brutalist">
+              <div class="team-image-brutalist">
+                <div class="team-placeholder">KD</div>
+                <div class="team-corner-accent"></div>
+              </div>
+              <div class="team-info">
+                <h3 class="team-name">Karim Darraji</h3>
+                <p class="team-role">Co-Founder & Directeur de production</p>
+                <p class="team-description">Expert en production audiovisuelle avec une vision stratégique pour transformer vos idées en réalisations concrètes.</p>
+              </div>
+            </div>
+            <div class="team-card-brutalist">
+              <div class="team-image-brutalist">
+                <div class="team-placeholder">SG</div>
+                <div class="team-corner-accent"></div>
+              </div>
+              <div class="team-info">
+                <h3 class="team-name">Souhila Guendouz</h3>
+                <p class="team-role">Directrice artistique</p>
+                <p class="team-description">Créatrice passionnée qui apporte une vision artistique unique à chaque projet audiovisuel.</p>
+              </div>
+            </div>
+            <div class="team-card-brutalist">
+              <div class="team-image-brutalist">
+                <div class="team-placeholder">FK</div>
+                <div class="team-corner-accent"></div>
+              </div>
+              <div class="team-info">
+                <h3 class="team-name">Fedi Khelifi</h3>
+                <p class="team-role">Monteur</p>
+                <p class="team-description">Spécialiste du montage vidéo qui transforme les rushes en œuvres finales captivantes.</p>
+              </div>
+            </div>
+            <div class="team-card-brutalist">
+              <div class="team-image-brutalist">
+                <div class="team-placeholder">MC</div>
+                <div class="team-corner-accent"></div>
+              </div>
+              <div class="team-info">
+                <h3 class="team-name">Marwen Chrigui</h3>
+                <p class="team-role">Ingénieur son</p>
+                <p class="team-description">Expert en ingénierie sonore qui assure la qualité audio exceptionnelle de nos productions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Contact</h2>
+            <p class="section-subtitle">Vous êtes ici par hasard ? Dans ce cas, remerciez le hasard...</p>
+          </div>
+          <div class="contact-content">
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4>Email</h4>
+                  <a href="mailto:contact-pixel@ipixelp.com">contact-pixel@ipixelp.com</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 16.92V19.92C22 20.52 21.52 21 20.92 21C10.93 21 3 13.07 3 3.08C3 2.48 3.48 2 4.08 2H7.09C7.69 2 8.17 2.48 8.17 3.08C8.17 4.43 8.4 5.72 8.82 6.94C8.96 7.31 8.85 7.72 8.54 7.99L6.54 9.99C8.38 13.05 10.95 15.62 14.01 17.46L16.01 15.46C16.28 15.15 16.69 15.04 17.06 15.18C18.28 15.6 19.57 15.83 20.92 15.83C21.52 15.83 22 16.31 22 16.92Z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4>Téléphone</h4>
+                  <a href="tel:+21624860210">+216 24 860 210</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 5.03 7.03 1 12 1S21 5.03 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4>Adresse</h4>
+                  <p>16 rue Caracalla Notre-Dame<br>1082 Tunis, Tunisie</p>
+                </div>
+              </div>
+            </div>
+            <div class="contact-form">
+              <form>
+                <div class="form-group">
+                  <input type="text" placeholder="Votre nom" required>
+                </div>
+                <div class="form-group">
+                  <input type="email" placeholder="Votre email" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" placeholder="Sujet">
+                </div>
+                <div class="form-group">
+                  <textarea placeholder="Votre message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer le message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-content">
+            <div class="footer-section">
+              <h4>International Pixel Production</h4>
+              <p>Société de production audiovisuelle à service complet. Nous sommes fiers de notre qualité et de la satisfaction de nos clients depuis 20 ans.</p>
+              <div class="social-links">
+                <a href="https://www.facebook.com/internationalpixelp/">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+                <a href="https://www.youtube.com/channel/UC8s-HxFEwQe9F67u0RD5gTA">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.54 6.42C22.4212 5.94541 22.1793 5.51057 21.8387 5.15941C21.4981 4.80824 21.0708 4.55318 20.6 4.42C18.88 4 12 4 12 4S5.12 4 3.4 4.46C2.92921 4.59318 2.50191 4.84824 2.16131 5.19941C1.82071 5.55057 1.57879 5.98541 1.46 6.46C1.14258 8.20556 0.991319 9.97631 1.01 11.75C0.988863 13.537 1.14012 15.3213 1.46 17.08C1.59116 17.5398 1.8379 17.9581 2.17774 18.2945C2.51758 18.6308 2.93842 18.8738 3.4 19C5.12 19.46 12 19.46 12 19.46S18.88 19.46 20.6 19C21.0708 18.8668 21.4981 18.6118 21.8387 18.2606C22.1793 17.9094 22.4212 17.4746 22.54 17C22.8524 15.2676 23.0036 13.5103 22.99 11.75C23.0112 9.96295 22.8599 8.1787 22.54 6.42Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="currentColor"/>
+                  </svg>
+                </a>
+                <a href="https://www.instagram.com/international_pixel_production/">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 11.37C16.1234 12.2022 15.9813 13.0522 15.5938 13.799C15.2063 14.5458 14.5931 15.1514 13.8416 15.5297C13.0901 15.9079 12.2384 16.0396 11.4078 15.9059C10.5771 15.7723 9.80976 15.3801 9.21484 14.7852C8.61992 14.1902 8.22773 13.4229 8.09407 12.5922C7.9604 11.7615 8.09207 10.9099 8.47033 10.1584C8.84859 9.40685 9.45419 8.79374 10.201 8.40624C10.9478 8.01874 11.7978 7.87658 12.63 8C13.4789 8.12588 14.2649 8.52146 14.8717 9.1283C15.4785 9.73515 15.8741 10.5211 16 11.37Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M17.5 6.5H17.51" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+                <a href="https://vimeo.com/internationalpixelp">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 4L20 8H17L15 4H9L7 8H4L6 4H18ZM2 10V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V10H2ZM12 12L17 15L12 18V12Z" fill="currentColor"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="footer-section">
+              <h4>Services</h4>
+              <ul>
+                <li>Production film documentaire</li>
+                <li>Production court métrage</li>
+                <li>Post-Production 4K</li>
+                <li>Reportage TV</li>
+                <li>Production TV et plateau</li>
+                <li>Diffusion live direct</li>
+              </ul>
+            </div>
+            <div class="footer-section">
+              <h4>Contact</h4>
+              <p>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline; margin-right: 8px; vertical-align: middle;">
+                  <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                contact-pixel@ipixelp.com
+              </p>
+              <p>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline; margin-right: 8px; vertical-align: middle;">
+                  <path d="M22 16.92V19.92C22 20.52 21.52 21 20.92 21C10.93 21 3 13.07 3 3.08C3 2.48 3.48 2 4.08 2H7.09C7.69 2 8.17 2.48 8.17 3.08C8.17 4.43 8.4 5.72 8.82 6.94C8.96 7.31 8.85 7.72 8.54 7.99L6.54 9.99C8.38 13.05 10.95 15.62 14.01 17.46L16.01 15.46C16.28 15.15 16.69 15.04 17.06 15.18C18.28 15.6 19.57 15.83 20.92 15.83C21.52 15.83 22 16.31 22 16.92Z" fill="currentColor"/>
+                </svg>
+                +216 24 860 210
+              </p>
+              <p>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline; margin-right: 8px; vertical-align: middle;">
+                  <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 5.03 7.03 1 12 1S21 5.03 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                16 rue Caracalla Notre-Dame<br>1082 Tunis, Tunisie
+              </p>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>&copy; 2025 International Pixel Production. Tous droits réservés.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      // Initialize Lucide icons only after DOM is loaded
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      });
+    </script>
+  </body>
+</html>
