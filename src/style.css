@@ -36,11 +36,6 @@
     transform: rotate(-45deg) translate(7px, -6px);
   }
 
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
   .about-content {
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);
@@ -61,10 +56,6 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 var(--spacing-sm);
-  }
-
-  .hero-content {
     padding: 0 var(--spacing-sm);
   }
 
@@ -107,7 +98,6 @@ html {
 /* Print styles */
 @media print {
   .navbar,
-  .hero-scroll,
   .btn {
     display: none;
   }
