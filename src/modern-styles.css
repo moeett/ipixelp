@@ -330,76 +330,208 @@ a:hover {
 .hero {
   position: relative;
   height: 100vh;
+  min-height: 600px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Fixed Spline Container - Remove all width constraints */
+/* Spline Container - Background Layer */
 .spline-container {
-  position: relative;
-  width: 100% !important; /* Force full width */
-  height: 600px !important; /* Fixed height */
-  max-width: none !important; /* Remove any max-width */
-  overflow: hidden;
-  background: #000; /* So you can see the container */
-}
-
-/* Ensure no parent is constraining width */
-.hero-section,
-.hero-content,
-section {
-  max-width: none !important; /* During testing */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 /* Force spline-viewer to fill container */
 .spline-container spline-viewer {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
   border: none;
   outline: none;
 }
 
+/* Hero Content - Overlay Layer */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.hero-text {
+  margin-bottom: var(--spacing-xl);
+}
+
+.hero-title {
+  margin-bottom: var(--spacing-lg);
+}
+
+.hero-title-main {
+  display: block;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+  display: block;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 500;
+  color: var(--accent-primary);
+  margin-bottom: var(--spacing-md);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero-description {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-buttons .btn {
+  min-width: 200px;
+  padding: 1.2rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  justify-content: center;
+}
+
+.hero-buttons .btn-primary {
+  background: var(--accent-primary);
+  color: white;
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 4px 20px rgba(191, 15, 15, 0.3);
+}
+
+.hero-buttons .btn-primary:hover {
+  background: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(191, 15, 15, 0.4);
+}
+
+.hero-buttons .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.hero-buttons .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Dark overlay for better text readability */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* Mobile specific */
 @media (max-width: 768px) {
-  .spline-container {
-    height: 400px !important;
+  .hero {
+    min-height: 80vh;
+  }
+  
+  .hero-content {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .hero-title-main {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+  }
+  
+  .hero-description {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .hero-buttons .btn {
+    min-width: 250px;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
   }
 }
 
-/* Desktop specific */
-@media (min-width: 769px) {
-  .spline-container {
-    width: 100% !important;
-    max-width: none !important;
+/* Tablet styles */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .hero-content {
+    max-width: 700px;
+  }
+  
+  .hero-buttons .btn {
+    min-width: 180px;
+    padding: 1.1rem 1.8rem;
   }
 }
 
-/* Debug - shows container is working */
-.spline-container::before {
-  content: 'Spline Container';
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: white;
-  z-index: 10;
-  pointer-events: none;
-  font-size: 12px;
+/* Animation for hero content */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Hide debug text when loaded */
-.spline-container.spline-loaded::before {
-  display: none;
-}
-
-/* Ensure hero section doesn't interfere */
-.hero {
-  min-height: 100vh;
-  position: relative;
-  display: block;
-  /* Remove any overflow: hidden that might hide Spline */
+.hero-content {
+  animation: fadeInUp 1s ease-out 0.5s both;
 }
 
 /* Fallback styles */
