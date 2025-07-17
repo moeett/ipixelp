@@ -11,6 +11,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.32/build/spline-viewer.js"></script>
+    <script>
+      // Add error handling for external script loading
+      const splineScript = document.querySelector('script[src*="splinetool"]');
+      if (splineScript) {
+        splineScript.addEventListener('error', (e) => {
+          console.error('❌ Failed to load Spline viewer script:', e);
+          console.log('💡 This may be due to network restrictions or ad blockers');
+        });
+      }
+    </script>
     <!-- Lucide icons will be loaded dynamically only when needed -->
   </head>
   <body>
@@ -775,6 +785,11 @@
             setTimeout(() => {
               if (!checkSplineViewer()) {
                 console.error('❌ Spline viewer failed to load after 10 seconds');
+                console.log('💡 This may be due to:');
+                console.log('   • Network restrictions or blocked external scripts');
+                console.log('   • Ad blockers or browser security policies');
+                console.log('   • CDN availability issues');
+                console.log('   • Check if https://unpkg.com/@splinetool/viewer is accessible');
                 reject(new Error('Spline viewer timeout'));
               }
             }, 10000);
@@ -796,8 +811,9 @@
               container.innerHTML = `
                 <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; text-align: center;">
                   <div>
-                    <h2>3D Content Unavailable</h2>
-                    <p>Spline viewer failed to load</p>
+                    <h2>3D Content Loading...</h2>
+                    <p>Spline viewer is initializing</p>
+                    <small>If this persists, check network connection or disable ad blockers</small>
                   </div>
                 </div>
               `;
