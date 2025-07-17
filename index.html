@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+
     <!-- Lucide icons will be loaded dynamically only when needed -->
   </head>
   <body>
@@ -60,10 +60,26 @@
         </div>
       </nav>
 
-      <!-- Hero Section with 3D Animation -->
+      <!-- Hero Section -->
       <section id="home" class="hero">
-        <div class="spline-container">
-          <!-- Spline viewer will be created dynamically with proper error handling -->
+        <div class="hero-content">
+          <h1 class="hero-title">International Pixel Production</h1>
+          <p class="hero-subtitle">Le début d'une parfaite production</p>
+          <div class="hero-buttons">
+            <a href="tel:+21624860210" class="btn btn-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92V19.92C22 20.52 21.52 21 20.92 21C10.93 21 3 13.07 3 3.08C3 2.48 3.48 2 4.08 2H7.09C7.69 2 8.17 2.48 8.17 3.08C8.17 4.43 8.4 5.72 8.82 6.94C8.96 7.31 8.85 7.72 8.54 7.99L6.54 9.99C8.38 13.05 10.95 15.62 14.01 17.46L16.01 15.46C16.28 15.15 16.69 15.04 17.06 15.18C18.28 15.6 19.57 15.83 20.92 15.83C21.52 15.83 22 16.31 22 16.92Z" fill="currentColor"/>
+              </svg>
+              Appelez-nous maintenant
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Démarrez votre projet
+            </a>
+          </div>
         </div>
       </section>
 
@@ -608,282 +624,7 @@
     </div>
     <script type="module" src="/src/main.js"></script>
 
-    <!-- Comprehensive Spline Debug & Fix Implementation -->
-    <script>
-      // Complete replacement with detailed logging
-      (function() {
-        console.log('🚀 Spline Script Starting...');
 
-        let splineViewer = null;
-        let currentDevice = null;
-        let initCount = 0;
-
-        // URLs configuration
-        const SPLINE_URLS = {
-          mobile: 'https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode',
-          desktop: 'https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode',
-          test: 'https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode' // Known working example
-        };
-
-        function getDeviceType() {
-          const width = window.innerWidth;
-          const type = width <= 768 ? 'mobile' : 'desktop';
-          console.log(`📱 Device check: width=${width}px, type=${type}`);
-          return type;
-        }
-
-        function getContainerInfo() {
-          const container = document.querySelector('.spline-container');
-          if (!container) {
-            console.error('❌ No .spline-container found!');
-            return null;
-          }
-
-          const rect = container.getBoundingClientRect();
-          const computed = window.getComputedStyle(container);
-
-          const info = {
-            width: rect.width,
-            height: rect.height,
-            display: computed.display,
-            position: computed.position,
-            visibility: computed.visibility,
-            overflow: computed.overflow,
-            maxWidth: computed.maxWidth,
-            parent: container.parentElement?.className
-          };
-
-          console.log('📦 Container info:', info);
-          return info;
-        }
-
-        function initSpline() {
-          initCount++;
-          console.log(`\n🔄 InitSpline called (attempt #${initCount})`);
-
-          const container = document.querySelector('.spline-container');
-          if (!container) {
-            console.error('❌ Container not found');
-            return;
-          }
-
-          // Get container info
-          const containerInfo = getContainerInfo();
-          if (!containerInfo || containerInfo.width === 0 || containerInfo.height === 0) {
-            console.warn('⚠️ Container has no dimensions, retrying in 500ms...');
-            setTimeout(initSpline, 500);
-            return;
-          }
-
-          // Check device type
-          const newDevice = getDeviceType();
-
-          // Check if we need to update
-          if (splineViewer && currentDevice === newDevice) {
-            console.log('✅ No change needed, keeping current viewer');
-            return;
-          }
-
-          // Remove existing viewer if device changed
-          if (splineViewer) {
-            console.log('🗑️ Removing existing viewer');
-            splineViewer.remove();
-            splineViewer = null;
-          }
-
-          // Update current device
-          currentDevice = newDevice;
-
-          // Create new viewer
-          console.log(`🎬 Creating ${currentDevice} Spline viewer`);
-          splineViewer = document.createElement('spline-viewer');
-
-          // Set the correct URL
-          const url = SPLINE_URLS[currentDevice];
-          splineViewer.setAttribute('url', url);
-
-          console.log(`📍 URL set to: ${url}`);
-          console.log(`📍 Expected: ${currentDevice === 'mobile' ? 'Mobile' : 'Desktop'} version`);
-
-          // Add event listeners
-          splineViewer.addEventListener('load-start', () => {
-            console.log('⏳ Spline load started');
-          });
-
-          splineViewer.addEventListener('load', () => {
-            console.log('✅ Spline loaded successfully');
-            container.classList.add('spline-loaded');
-          });
-
-          splineViewer.addEventListener('error', (e) => {
-            console.error('❌ Spline error:', e);
-          });
-
-          // Append to container
-          container.appendChild(splineViewer);
-
-          // Verify after append
-          setTimeout(() => {
-            const viewer = container.querySelector('spline-viewer');
-            if (viewer) {
-              const actualUrl = viewer.getAttribute('url');
-              const isCorrect = actualUrl === url;
-              console.log(`🔍 Verification: URL ${isCorrect ? '✅ CORRECT' : '❌ WRONG'}`);
-              console.log(`   Expected: ${url}`);
-              console.log(`   Actual: ${actualUrl}`);
-            }
-          }, 100);
-        }
-
-        // Check if Spline viewer is loaded
-        function checkSplineViewer() {
-          if (customElements.get('spline-viewer')) {
-            console.log('✅ Spline viewer is loaded');
-            return true;
-          } else {
-            console.log('❌ Spline viewer NOT loaded - this is the problem!');
-            return false;
-          }
-        }
-
-        // Wait for Spline viewer to be available
-        function waitForSplineViewer() {
-          return new Promise((resolve, reject) => {
-            if (checkSplineViewer()) {
-              resolve();
-              return;
-            }
-
-            // Wait for custom element to be defined
-            customElements.whenDefined('spline-viewer').then(() => {
-              console.log('✅ Spline viewer now available');
-              resolve();
-            }).catch(reject);
-
-            // Timeout after 10 seconds
-            setTimeout(() => {
-              if (!checkSplineViewer()) {
-                console.error('❌ Spline viewer failed to load after 10 seconds');
-                reject(new Error('Spline viewer timeout'));
-              }
-            }, 10000);
-          });
-        }
-
-        // Initialize only after Spline viewer is ready
-        async function initializeWhenReady() {
-          try {
-            console.log('⏳ Waiting for Spline viewer to load...');
-            await waitForSplineViewer();
-            console.log('🚀 Spline viewer ready, initializing...');
-            initSpline();
-          } catch (error) {
-            console.error('❌ Failed to load Spline viewer:', error);
-            // Show fallback
-            const container = document.querySelector('.spline-container');
-            if (container) {
-              container.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; text-align: center;">
-                  <div>
-                    <h2>3D Content Unavailable</h2>
-                    <p>Spline viewer failed to load</p>
-                  </div>
-                </div>
-              `;
-            }
-          }
-        }
-
-        // Wait for DOM and window load
-        console.log('📄 Document state:', document.readyState);
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', () => {
-            console.log('📄 DOM Content Loaded');
-            setTimeout(initializeWhenReady, 100);
-          });
-        } else {
-          console.log('📄 DOM already loaded');
-          setTimeout(initializeWhenReady, 100);
-        }
-
-        // Window load event for safety
-        window.addEventListener('load', () => {
-          console.log('🪟 Window loaded');
-          // Only init if not already done
-          if (!splineViewer && checkSplineViewer()) {
-            initSpline();
-          }
-        });
-
-        // Resize handler with better logic
-        let resizeTimer;
-        let lastWidth = window.innerWidth;
-
-        window.addEventListener('resize', () => {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(() => {
-            const currentWidth = window.innerWidth;
-            const widthChange = Math.abs(currentWidth - lastWidth);
-
-            console.log(`📐 Resize: ${lastWidth}px → ${currentWidth}px (change: ${widthChange}px)`);
-
-            // Only reinit if significant change and crosses breakpoint
-            if (widthChange > 50) {
-              const wasDesktop = lastWidth > 768;
-              const isDesktop = currentWidth > 768;
-
-              if (wasDesktop !== isDesktop) {
-                console.log('🔄 Device type changed, reinitializing');
-                lastWidth = currentWidth;
-                initSpline();
-              }
-            }
-          }, 500);
-        });
-
-        // Debug helper function
-        window.debugSpline = function() {
-          console.log('\n🔍 SPLINE DEBUG INFO:');
-          console.log('Window width:', window.innerWidth);
-          console.log('Current device:', currentDevice);
-          console.log('Init count:', initCount);
-
-          // Check Spline viewer availability
-          const isSplineViewerLoaded = customElements.get('spline-viewer');
-          console.log('Spline viewer loaded:', !!isSplineViewerLoaded);
-
-          const viewer = document.querySelector('spline-viewer');
-          if (viewer) {
-            console.log('Viewer exists:', true);
-            console.log('Viewer URL:', viewer.getAttribute('url'));
-            console.log('Viewer dimensions:', viewer.offsetWidth, 'x', viewer.offsetHeight);
-            console.log('Viewer innerHTML length:', viewer.innerHTML.length);
-            if (viewer.innerHTML.length > 100) {
-              console.log('⚠️ Viewer showing raw content instead of 3D - this is the problem!');
-            }
-          } else {
-            console.log('Viewer exists:', false);
-          }
-
-          getContainerInfo();
-        };
-
-        // Test function to try known working Spline
-        window.testSpline = function() {
-          console.log('🧪 Testing with known working Spline...');
-          const container = document.querySelector('.spline-container');
-          if (container) {
-            container.innerHTML = '';
-            const viewer = document.createElement('spline-viewer');
-            viewer.setAttribute('url', SPLINE_URLS.test);
-            container.appendChild(viewer);
-            console.log('✅ Test Spline loaded');
-          }
-        };
-
-        console.log('💡 Type debugSpline() in console for current status');
-      })();
 
       // Load icons only if needed
       function loadLucideIcons() {

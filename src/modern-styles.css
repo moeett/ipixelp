@@ -330,312 +330,80 @@ a:hover {
 .hero {
   position: relative;
   height: 100vh;
-  overflow: hidden;
-}
-
-/* Fixed Spline Container - Remove all width constraints */
-.spline-container {
-  position: relative;
-  width: 100% !important; /* Force full width */
-  height: 600px !important; /* Fixed height */
-  max-width: none !important; /* Remove any max-width */
-  overflow: hidden;
-  background: #000; /* So you can see the container */
-}
-
-/* Ensure no parent is constraining width */
-.hero-section,
-.hero-content,
-section {
-  max-width: none !important; /* During testing */
-}
-
-/* Force spline-viewer to fill container */
-.spline-container spline-viewer {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-  border: none;
-  outline: none;
-}
-
-/* Mobile specific */
-@media (max-width: 768px) {
-  .spline-container {
-    height: 400px !important;
-  }
-}
-
-/* Desktop specific */
-@media (min-width: 769px) {
-  .spline-container {
-    width: 100% !important;
-    max-width: none !important;
-  }
-}
-
-/* Debug - shows container is working */
-.spline-container::before {
-  content: 'Spline Container';
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: white;
-  z-index: 10;
-  pointer-events: none;
-  font-size: 12px;
-}
-
-/* Hide debug text when loaded */
-.spline-container.spline-loaded::before {
-  display: none;
-}
-
-/* Ensure hero section doesn't interfere */
-.hero {
-  min-height: 100vh;
-  position: relative;
-  display: block;
-  /* Remove any overflow: hidden that might hide Spline */
-}
-
-/* Fallback styles */
-.spline-fallback {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  z-index: 5;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  overflow: hidden;
 }
 
-.fallback-gradient {
+.hero::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg,
-    #0a0a0a 0%,
-    #2a0a0a 25%,
-    var(--accent-primary) 50%,
-    #1a0a0a 75%,
-    #0a0a0a 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 8s ease infinite;
-}
-
-.fallback-content {
-  position: relative;
-  z-index: 2;
-  color: var(--text-primary);
-}
-
-.fallback-content h2 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  margin-bottom: var(--spacing-sm);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--text-primary);
-}
-
-.fallback-content p {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  margin: 0.5rem 0;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Legacy viewer styles for backward compatibility */
-.hero .hero-desktop,
-.hero .hero-mobile {
-  width: 100%;
-  height: 100vh;
-  border: none;
-  outline: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none; /* Hidden by default, will be shown by JS */
-}
-
-/* Old hero styles - commented out since we're using full Spline embed
-.hero-3d-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-
-.hero-3d-background spline-viewer,
-.hero-3d-background .spline-iframe-fallback {
-  width: 100%;
-  height: 100%;
-  display: block;
-  border: none;
-  outline: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.hero-fallback {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.animated-gradient {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg,
-    #0a0a0a 0%,
-    #2a0a0a 25%,
-    #bf0f0f 50%,
-    #1a0a0a 75%,
-    #0a0a0a 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 8s ease infinite;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(191, 15, 15, 0.1) 50%, transparent 100%);
   z-index: 1;
-  pointer-events: none;
 }
-*/
 
-/* Hero content styles - commented out for full Spline embed
 .hero-content {
   text-align: center;
-  max-width: 900px;
+  max-width: 800px;
   padding: 0 var(--spacing-md);
-  animation: fadeInUp 1s ease-out;
+  z-index: 2;
   position: relative;
-  z-index: 10;
+  animation: fadeInUp 1s ease-out;
 }
-*/
 
-/*
 .hero-title {
-  margin-bottom: var(--spacing-lg);
-}
-
-.hero-title-main {
-  display: block;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 700;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: var(--font-weight-bold);
   color: var(--text-primary);
   margin-bottom: var(--spacing-md);
-  line-height: 1.2;
+  line-height: 1.1;
   letter-spacing: -0.02em;
-}
-
-.hero-description {
-  font-size: 1.3rem;
-  margin-bottom: var(--spacing-xl);
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-*/
-
-/*
-.hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-top: 3rem;
-  flex-wrap: wrap;
-}
-
-.hero-stat {
-  text-align: center;
-}
-
-.hero-stat .stat-number {
-  display: block;
-  font-size: 2.5rem;
-  font-weight: var(--font-weight-bold);
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.hero-stat .stat-label {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 500;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-2xl);
+  font-weight: var(--font-weight-medium);
+  font-style: italic;
 }
 
 .hero-buttons {
   display: flex;
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 }
 
-.hero-scroll {
-  position: absolute;
-  bottom: var(--spacing-lg);
-  left: 50%;
-  transform: translateX(-50%);
+.hero-buttons .btn {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: var(--spacing-xs);
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  animation: bounce 2s infinite;
-  z-index: 10;
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all var(--transition-normal);
+  border-radius: var(--radius-md);
+  min-width: 200px;
+  justify-content: center;
 }
 
-.scroll-indicator {
-  width: 2px;
-  height: 30px;
-  background: var(--accent-gradient);
-  border-radius: 1px;
+.hero-buttons .btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
-*/
 
-/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -647,15 +415,27 @@ section {
   }
 }
 
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateX(-50%) translateY(0);
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-buttons {
+    flex-direction: column;
+    gap: var(--spacing-md);
   }
-  40% {
-    transform: translateX(-50%) translateY(-10px);
+  
+  .hero-buttons .btn {
+    min-width: 250px;
   }
-  60% {
-    transform: translateX(-50%) translateY(-5px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
