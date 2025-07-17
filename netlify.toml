@@ -2,6 +2,10 @@
   publish = "dist"
   command = "npm install && npm run build"
 
+# Disable automatic service worker generation to prevent Response constructor errors
+[build.environment]
+  DISABLE_SERVICE_WORKER = "true"
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -24,3 +28,16 @@
   for = "*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Prevent service worker related files from being served
+[[redirects]]
+  from = "/*sw*.js"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/*cnm*.js"
+  to = "/404"
+  status = 404
+  force = true
