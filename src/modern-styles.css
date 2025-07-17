@@ -118,7 +118,12 @@ a {
 }
 
 a:hover {
-  color: #ffffff;
+  color: var(--accent-secondary);
+}
+
+/* Light theme hover color adjustment */
+[data-theme="light"] a:hover {
+  color: var(--accent-primary);
 }
 
 /* Buttons */
@@ -283,6 +288,15 @@ a:hover {
   position: relative;
   padding: var(--spacing-xs) 0;
   transition: color var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--accent-primary);
+}
+
+/* Light theme navigation hover */
+[data-theme="light"] .nav-link:hover {
+  color: var(--accent-secondary);
 }
 
 .nav-link::after {
