@@ -2,7 +2,6 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="International Pixel Production - Société de production audiovisuelle en Tunisie. Services de production vidéo, film corporate, motion design depuis 2013." />
     <title>International Pixel Production - Agence Production Audiovisuelle Tunisie</title>
@@ -11,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.32/build/spline-viewer.js"></script>
     <!-- Lucide icons will be loaded dynamically only when needed -->
   </head>
   <body>
@@ -657,7 +656,7 @@
           return info;
         }
 
-        function initSpline() {
+        async function initSpline() {
           initCount++;
           console.log(`\n🔄 InitSpline called (attempt #${initCount})`);
 
@@ -671,7 +670,7 @@
           const containerInfo = getContainerInfo();
           if (!containerInfo || containerInfo.width === 0 || containerInfo.height === 0) {
             console.warn('⚠️ Container has no dimensions, retrying in 500ms...');
-            setTimeout(initSpline, 500);
+            setTimeout(() => initSpline(), 500);
             return;
           }
 
@@ -687,12 +686,24 @@
           // Remove existing viewer if device changed
           if (splineViewer) {
             console.log('🗑️ Removing existing viewer');
-            splineViewer.remove();
+            // Properly clean up the viewer
+            try {
+              splineViewer.remove();
+            } catch (e) {
+              console.warn('⚠️ Error removing viewer:', e);
+            }
             splineViewer = null;
+            container.classList.remove('spline-loaded');
+            
+            // Clear container to ensure clean state
+            container.innerHTML = '';
           }
 
           // Update current device
           currentDevice = newDevice;
+
+          // Wait a bit for cleanup before creating new viewer
+          await new Promise(resolve => setTimeout(resolve, 100));
 
           // Create new viewer
           console.log(`🎬 Creating ${currentDevice} Spline viewer`);
@@ -776,7 +787,7 @@
             console.log('⏳ Waiting for Spline viewer to load...');
             await waitForSplineViewer();
             console.log('🚀 Spline viewer ready, initializing...');
-            initSpline();
+            await initSpline();
           } catch (error) {
             console.error('❌ Failed to load Spline viewer:', error);
             // Show fallback
@@ -808,11 +819,11 @@
         }
 
         // Window load event for safety
-        window.addEventListener('load', () => {
+        window.addEventListener('load', async () => {
           console.log('🪟 Window loaded');
           // Only init if not already done
           if (!splineViewer && checkSplineViewer()) {
-            initSpline();
+            await initSpline();
           }
         });
 
@@ -822,7 +833,7 @@
 
         window.addEventListener('resize', () => {
           clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(() => {
+          resizeTimer = setTimeout(async () => {
             const currentWidth = window.innerWidth;
             const widthChange = Math.abs(currentWidth - lastWidth);
 
@@ -836,7 +847,7 @@
               if (wasDesktop !== isDesktop) {
                 console.log('🔄 Device type changed, reinitializing');
                 lastWidth = currentWidth;
-                initSpline();
+                await initSpline();
               }
             }
           }, 500);
