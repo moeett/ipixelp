@@ -11,7 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
+    <!-- Fallback script for older browsers -->
+    <script nomodule src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
     <!-- Lucide icons will be loaded dynamically only when needed -->
   </head>
   <body>
@@ -63,6 +65,15 @@
       <!-- Hero Section with 3D Animation -->
       <section id="home" class="hero">
         <div class="spline-container">
+          <!-- Initial loading state -->
+          <div class="spline-loading">
+            <div class="fallback-gradient"></div>
+            <div class="fallback-content">
+              <h2>International Pixel Production</h2>
+              <p>Production audiovisuelle créative</p>
+              <p>Chargement de l'expérience 3D...</p>
+            </div>
+          </div>
           <!-- Spline viewer will be created dynamically with proper error handling -->
         </div>
       </section>
@@ -654,6 +665,13 @@
           };
 
           console.log('📦 Container info:', info);
+          
+          // Validate dimensions to prevent WebGL errors
+          if (info.width <= 0 || info.height <= 0) {
+            console.warn('⚠️ Container has invalid dimensions:', info);
+            return null;
+          }
+          
           return info;
         }
 
@@ -667,11 +685,21 @@
             return;
           }
 
-          // Get container info
+          // Get container info and validate dimensions
           const containerInfo = getContainerInfo();
-          if (!containerInfo || containerInfo.width === 0 || containerInfo.height === 0) {
-            console.warn('⚠️ Container has no dimensions, retrying in 500ms...');
+          if (!containerInfo) {
+            console.warn('⚠️ Container has no valid dimensions, retrying in 500ms...');
             setTimeout(initSpline, 500);
+            return;
+          }
+
+          // Ensure minimum dimensions to prevent WebGL errors
+          if (containerInfo.width < 320 || containerInfo.height < 240) {
+            console.warn('⚠️ Container dimensions too small, setting minimum size');
+            container.style.minWidth = '320px';
+            container.style.minHeight = '240px';
+            // Retry after applying minimum size
+            setTimeout(initSpline, 100);
             return;
           }
 
@@ -687,10 +715,20 @@
           // Remove existing viewer if device changed
           if (splineViewer) {
             console.log('🗑️ Removing existing viewer');
+            // Wait for removal to complete before creating new one
             splineViewer.remove();
             splineViewer = null;
+            
+            // Small delay to ensure cleanup
+            setTimeout(() => {
+              createNewViewer(newDevice, container);
+            }, 100);
+          } else {
+            createNewViewer(newDevice, container);
           }
+        }
 
+        function createNewViewer(newDevice, container) {
           // Update current device
           currentDevice = newDevice;
 
@@ -713,10 +751,20 @@
           splineViewer.addEventListener('load', () => {
             console.log('✅ Spline loaded successfully');
             container.classList.add('spline-loaded');
+            // Hide loading state
+            const loadingEl = container.querySelector('.spline-loading');
+            if (loadingEl) {
+              loadingEl.style.opacity = '0';
+              setTimeout(() => {
+                loadingEl.style.display = 'none';
+              }, 500);
+            }
           });
 
           splineViewer.addEventListener('error', (e) => {
             console.error('❌ Spline error:', e);
+            // Show fallback on error
+            showFallback(container);
           });
 
           // Append to container
@@ -733,6 +781,30 @@
               console.log(`   Actual: ${actualUrl}`);
             }
           }, 100);
+        }
+
+        function showFallback(container) {
+          console.log('🔄 Showing fallback content');
+          
+          // Hide loading state
+          const loadingEl = container.querySelector('.spline-loading');
+          if (loadingEl) {
+            loadingEl.style.display = 'none';
+          }
+          
+          // Create fallback content
+          const fallbackEl = document.createElement('div');
+          fallbackEl.className = 'spline-fallback';
+          fallbackEl.innerHTML = `
+            <div class="fallback-gradient"></div>
+            <div class="fallback-content">
+              <h2>International Pixel Production</h2>
+              <p>Production audiovisuelle créative</p>
+              <p>Expérience 3D temporairement indisponible</p>
+            </div>
+          `;
+          
+          container.appendChild(fallbackEl);
         }
 
         // Check if Spline viewer is loaded
@@ -779,17 +851,10 @@
             initSpline();
           } catch (error) {
             console.error('❌ Failed to load Spline viewer:', error);
-            // Show fallback
+            // Show enhanced fallback
             const container = document.querySelector('.spline-container');
             if (container) {
-              container.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; text-align: center;">
-                  <div>
-                    <h2>3D Content Unavailable</h2>
-                    <p>Spline viewer failed to load</p>
-                  </div>
-                </div>
-              `;
+              showFallback(container);
             }
           }
         }
@@ -816,11 +881,14 @@
           }
         });
 
-        // Resize handler with better logic
+        // Resize handler with better logic and debouncing
         let resizeTimer;
         let lastWidth = window.innerWidth;
+        let isResizing = false;
 
         window.addEventListener('resize', () => {
+          if (isResizing) return; // Prevent multiple calls during resize
+          
           clearTimeout(resizeTimer);
           resizeTimer = setTimeout(() => {
             const currentWidth = window.innerWidth;
@@ -835,11 +903,17 @@
 
               if (wasDesktop !== isDesktop) {
                 console.log('🔄 Device type changed, reinitializing');
+                isResizing = true;
                 lastWidth = currentWidth;
-                initSpline();
+                
+                // Ensure container has time to resize before reinitializing
+                setTimeout(() => {
+                  initSpline();
+                  isResizing = false;
+                }, 200);
               }
             }
-          }, 500);
+          }, 300); // Increased debounce time
         });
 
         // Debug helper function
