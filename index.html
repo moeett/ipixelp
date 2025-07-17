@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.48/build/spline-viewer.js"></script>
     <!-- Lucide icons will be loaded dynamically only when needed -->
   </head>
   <body>
@@ -705,7 +705,7 @@
           console.log(`📍 URL set to: ${url}`);
           console.log(`📍 Expected: ${currentDevice === 'mobile' ? 'Mobile' : 'Desktop'} version`);
 
-          // Add event listeners
+          // Add event listeners with version mismatch detection
           splineViewer.addEventListener('load-start', () => {
             console.log('⏳ Spline load started');
           });
@@ -713,10 +713,22 @@
           splineViewer.addEventListener('load', () => {
             console.log('✅ Spline loaded successfully');
             container.classList.add('spline-loaded');
+
+            // Check for version mismatch warnings
+            setTimeout(() => {
+              const consoleWarnings = console.warn.toString();
+              if (consoleWarnings.includes('splinecode file is more recent')) {
+                console.warn('⚠️ VERSION MISMATCH DETECTED: Spline file is newer than viewer');
+                console.log('💡 Try updating to @splinetool/viewer@alpha or re-export Spline files');
+              }
+            }, 1000);
           });
 
           splineViewer.addEventListener('error', (e) => {
             console.error('❌ Spline error:', e);
+            if (e.message && e.message.includes('version')) {
+              console.error('🔧 VERSION ERROR: Update Spline viewer or re-export files');
+            }
           });
 
           // Append to container
@@ -882,7 +894,51 @@
           }
         };
 
+        // Debug Shadow DOM and force re-render
+        window.debugShadowDOM = function() {
+          const viewer = document.querySelector('spline-viewer');
+          if (viewer && viewer.shadowRoot) {
+            console.log('✅ Shadow DOM content exists:', viewer.shadowRoot.innerHTML.length, 'characters');
+            console.log('Shadow DOM children:', viewer.shadowRoot.children.length);
+          } else {
+            console.log('❌ No shadow DOM - this might be the issue');
+          }
+
+          // Force a re-render
+          if (viewer) {
+            console.log('🔄 Forcing re-render...');
+            viewer.style.display = 'none';
+            setTimeout(() => {
+              viewer.style.display = 'block';
+              console.log('✅ Re-render complete');
+            }, 100);
+          }
+        };
+
         console.log('💡 Type debugSpline() in console for current status');
+        console.log('💡 Type debugShadowDOM() to check Shadow DOM and force re-render');
+        console.log('💡 Type testSpline() to test with known working example');
+
+        // Try alpha version if version mismatch detected
+        window.tryAlphaVersion = function() {
+          console.log('🧪 Trying alpha version of Spline viewer...');
+          const script = document.createElement('script');
+          script.type = 'module';
+          script.src = 'https://unpkg.com/@splinetool/viewer@alpha/build/spline-viewer.js';
+          script.onload = () => {
+            console.log('✅ Alpha version loaded, reinitializing...');
+            // Clear existing viewers
+            document.querySelectorAll('spline-viewer').forEach(v => v.remove());
+            splineViewer = null;
+            currentDevice = null;
+            // Reinitialize
+            setTimeout(initSpline, 500);
+          };
+          script.onerror = () => {
+            console.error('❌ Alpha version failed to load');
+          };
+          document.head.appendChild(script);
+        };
       })();
 
       // Load icons only if needed

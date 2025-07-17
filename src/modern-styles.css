@@ -333,10 +333,11 @@ a:hover {
   overflow: hidden;
 }
 
-/* Fixed Spline Container - Remove all width constraints */
+/* Fixed Spline Container - Force proper dimensions to prevent WebGL errors */
 .spline-container {
   position: relative;
   width: 100% !important; /* Force full width */
+  min-width: 800px !important; /* Force minimum width on desktop */
   height: 600px !important; /* Fixed height */
   max-width: none !important; /* Remove any max-width */
   overflow: hidden;
@@ -365,6 +366,8 @@ section {
 /* Mobile specific */
 @media (max-width: 768px) {
   .spline-container {
+    min-width: unset !important;
+    width: 100% !important;
     height: 400px !important;
   }
 }
