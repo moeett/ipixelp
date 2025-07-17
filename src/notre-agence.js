@@ -1,8 +1,8 @@
 import './style.css'
+import './notre-agence-styles.css'
 
-// Modern JavaScript for International Pixel Production Website
-
-class IPPixelWebsite {
+// Notre Agence JavaScript functionality
+class NotreAgenceWebsite {
   constructor() {
     this.init();
   }
@@ -12,12 +12,10 @@ class IPPixelWebsite {
     this.setupThemeToggle();
     this.setupScrollEffects();
     this.setupAnimations();
-    this.setupPortfolio();
     this.setupStats();
-    
-    // Initialize theme for stats section
-    const currentTheme = localStorage.getItem('theme') || 'dark';
-    this.switchStatsTheme(currentTheme);
+    this.setupHeroTextAnimation();
+    this.setupClientsCarousel();
+    this.setupHistoireSection();
   }
 
   // Navigation functionality
@@ -42,7 +40,7 @@ class IPPixelWebsite {
       });
     });
 
-    // Active link highlighting
+    // Active link highlighting for page sections
     this.updateActiveLink();
     window.addEventListener('scroll', () => this.updateActiveLink());
   }
@@ -60,9 +58,10 @@ class IPPixelWebsite {
       }
     });
 
+    // Keep "Notre agence" active since we're on this page
     navLinks.forEach(link => {
       link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
+      if (link.getAttribute('href') === 'notre-agence.html') {
         link.classList.add('active');
       }
     });
@@ -92,7 +91,8 @@ class IPPixelWebsite {
         themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
       }
 
-      // Switch stats section theme
+      // Switch theme for all sections
+      this.switchHistoireTheme(newTheme);
       this.switchStatsTheme(newTheme);
     });
   }
@@ -127,87 +127,12 @@ class IPPixelWebsite {
     }, observerOptions);
 
     // Observe elements for animation
-    const animateElements = document.querySelectorAll('.service-card, .portfolio-item, .stat-item');
+    const animateElements = document.querySelectorAll('.team-card-brutalist, .stat-card-brutalist, .client-card');
     animateElements.forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(30px)';
       el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       observer.observe(el);
-    });
-  }
-
-  // Portfolio functionality
-  setupPortfolio() {
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    const playOverlays = document.querySelectorAll('.portfolio-play-overlay');
-
-    // Handle legacy portfolio items
-    portfolioItems.forEach(item => {
-      const playButton = item.querySelector('.portfolio-play');
-
-      playButton?.addEventListener('click', () => {
-        // Here you would implement video modal or redirect
-        console.log('Play video for:', item.querySelector('.portfolio-title')?.textContent);
-      });
-    });
-
-    // Handle new video portfolio items
-    playOverlays.forEach(overlay => {
-      overlay.addEventListener('click', function(e) {
-        e.preventDefault();
-        const video = this.parentElement.querySelector('.portfolio-video');
-
-        if (video.paused) {
-          // Pause all other videos first
-          document.querySelectorAll('.portfolio-video').forEach(v => {
-            if (v !== video) {
-              v.pause();
-              v.parentElement.querySelector('.portfolio-play-overlay').style.opacity = '0';
-            }
-          });
-
-          // Play this video
-          video.play();
-          this.style.opacity = '0';
-
-          // Show overlay again when video ends
-          video.addEventListener('ended', () => {
-            this.style.opacity = '1';
-          });
-
-          // Show overlay when video is paused
-          video.addEventListener('pause', () => {
-            if (!video.ended) {
-              this.style.opacity = '1';
-            }
-          });
-
-        } else {
-          video.pause();
-          this.style.opacity = '1';
-        }
-      });
-    });
-
-    // Handle video hover effects
-    const portfolioCards = document.querySelectorAll('.portfolio-card-brutalist');
-    portfolioCards.forEach(card => {
-      const video = card.querySelector('.portfolio-video');
-      const overlay = card.querySelector('.portfolio-play-overlay');
-
-      if (video && overlay) {
-        card.addEventListener('mouseenter', () => {
-          if (video.paused) {
-            overlay.style.opacity = '1';
-          }
-        });
-
-        card.addEventListener('mouseleave', () => {
-          if (video.paused) {
-            overlay.style.opacity = '0';
-          }
-        });
-      }
     });
   }
 
@@ -245,21 +170,114 @@ class IPPixelWebsite {
     });
   }
 
-  switchStatsTheme(theme) {
-    const lightVersion = document.querySelector('.stats-light');
-    const darkVersion = document.querySelector('.stats-dark');
+  // Hero text animation
+  setupHeroTextAnimation() {
+    document.querySelectorAll('.animated-text-hero').forEach(container => {
+      const spans = container.querySelectorAll('span');
+      let currentIndex = 0;
 
-    console.log('Switching stats theme to:', theme); // Debug log
+      // Initialize: show first span, hide others
+      spans.forEach((span, index) => {
+        if (index === 0) {
+          span.style.opacity = '1';
+          span.style.display = 'block';
+        } else {
+          span.style.opacity = '0';
+          span.style.display = 'none';
+        }
+      });
+
+      setInterval(() => {
+        // Fade out current
+        spans[currentIndex].style.opacity = '0';
+        setTimeout(() => {
+          spans[currentIndex].style.display = 'none';
+
+          // Move to next
+          currentIndex = (currentIndex + 1) % spans.length;
+
+          // Fade in next
+          spans[currentIndex].style.display = 'block';
+          setTimeout(() => {
+            spans[currentIndex].style.opacity = '1';
+          }, 50);
+        }, 300);
+      }, 4000); // Slower timing for hero
+    });
+  }
+
+  // Clients carousel
+  setupClientsCarousel() {
+    const carousel = document.getElementById('clients-carousel');
+    if (!carousel) return;
+
+    // Duplicate the carousel content for seamless infinite scroll
+    const carouselContent = carousel.innerHTML;
+    carousel.innerHTML = carouselContent + carouselContent;
+
+    // Auto scroll animation
+    let scrollPosition = 0;
+    const scrollSpeed = 0.5; // pixels per frame
+
+    const animate = () => {
+      scrollPosition += scrollSpeed;
+      
+      // Reset position when we've scrolled through the original content
+      if (scrollPosition >= carousel.scrollWidth / 2) {
+        scrollPosition = 0;
+      }
+      
+      carousel.style.transform = `translateX(-${scrollPosition}px)`;
+      requestAnimationFrame(animate);
+    };
+
+    // Start animation
+    animate();
+
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => {
+      carousel.style.animationPlayState = 'paused';
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      carousel.style.animationPlayState = 'running';
+    });
+  }
+
+  // Histoire section functionality
+  setupHistoireSection() {
+    // Initialize theme based on current setting
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    this.switchHistoireTheme(currentTheme);
+    this.switchStatsTheme(currentTheme);
+  }
+
+  switchHistoireTheme(theme) {
+    const lightVersion = document.querySelector('.histoire-light');
+    const darkVersion = document.querySelector('.histoire-dark');
 
     if (lightVersion && darkVersion) {
       if (theme === 'light') {
         lightVersion.style.display = 'block';
         darkVersion.style.display = 'none';
-        console.log('Showing stats light version'); // Debug log
       } else {
         lightVersion.style.display = 'none';
         darkVersion.style.display = 'block';
-        console.log('Showing stats dark version'); // Debug log
+      }
+    }
+  }
+
+  switchStatsTheme(theme) {
+    const lightVersion = document.querySelector('.stats-light');
+    const darkVersion = document.querySelector('.stats-dark');
+
+    if (lightVersion && darkVersion) {
+      if (theme === 'light') {
+        lightVersion.style.display = 'block';
+        darkVersion.style.display = 'none';
+      } else {
+        lightVersion.style.display = 'none';
+        darkVersion.style.display = 'block';
       }
     }
   }
@@ -267,7 +285,7 @@ class IPPixelWebsite {
 
 // Initialize the website when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  new IPPixelWebsite();
+  new NotreAgenceWebsite();
 });
 
 // Smooth scrolling for anchor links
