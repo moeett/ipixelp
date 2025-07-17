@@ -329,28 +329,27 @@ a:hover {
 /* Hero Section */
 .hero {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  background: #000;
 }
 
-/* Fixed Spline Container - Remove all width constraints */
+/* Spline Container - Responsive sizing */
 .spline-container {
-  position: relative;
-  width: 100% !important; /* Force full width */
-  height: 600px !important; /* Fixed height */
-  max-width: none !important; /* Remove any max-width */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  background: #000; /* So you can see the container */
+  background: #000;
+  z-index: 0;
 }
 
-/* Ensure no parent is constraining width */
-.hero-section,
-.hero-content,
-section {
-  max-width: none !important; /* During testing */
-}
-
-/* Force spline-viewer to fill container */
+/* Force spline-viewer to fill container properly */
 .spline-container spline-viewer {
   position: absolute !important;
   top: 0 !important;
@@ -360,20 +359,29 @@ section {
   display: block !important;
   border: none;
   outline: none;
+  min-width: 320px; /* Prevent zero-width */
+  min-height: 240px; /* Prevent zero-height */
 }
 
-/* Mobile specific */
+/* Mobile specific sizing */
 @media (max-width: 768px) {
+  .hero {
+    min-height: 70vh; /* Smaller on mobile */
+  }
+  
   .spline-container {
-    height: 400px !important;
+    min-height: 400px; /* Ensure minimum height */
   }
 }
 
-/* Desktop specific */
+/* Desktop specific sizing */
 @media (min-width: 769px) {
+  .hero {
+    min-height: 100vh; /* Full height on desktop */
+  }
+  
   .spline-container {
-    width: 100% !important;
-    max-width: none !important;
+    min-height: 600px; /* Ensure minimum height */
   }
 }
 
@@ -400,6 +408,29 @@ section {
   position: relative;
   display: block;
   /* Remove any overflow: hidden that might hide Spline */
+}
+
+/* Loading state */
+.spline-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  z-index: 3;
+  transition: opacity 0.5s ease;
+}
+
+/* Hide loading when Spline is loaded */
+.spline-loaded .spline-loading {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Fallback styles */
@@ -441,9 +472,9 @@ section {
 }
 
 .fallback-content h2 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--text-primary);

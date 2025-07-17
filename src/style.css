@@ -57,6 +57,11 @@
   .portfolio-grid {
     grid-template-columns: 1fr;
   }
+
+  /* Improve mobile hero section */
+  .hero {
+    padding-top: 80px; /* Account for fixed navbar */
+  }
 }
 
 @media (max-width: 480px) {
@@ -75,6 +80,11 @@
   .portfolio-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
+  }
+
+  /* Further mobile optimizations */
+  .hero {
+    min-height: 60vh; /* Smaller on very small screens */
   }
 }
 
