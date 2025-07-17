@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
     <!-- Lucide icons will be loaded dynamically only when needed -->
   </head>
   <body>
@@ -621,7 +621,8 @@
         // URLs configuration
         const SPLINE_URLS = {
           mobile: 'https://prod.spline.design/7OY7EQbLmGFXXEXJ/scene.splinecode',
-          desktop: 'https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode'
+          desktop: 'https://prod.spline.design/IhqVDRC-d2KKlG6p/scene.splinecode',
+          test: 'https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode' // Known working example
         };
 
         function getDeviceType() {
@@ -734,24 +735,83 @@
           }, 100);
         }
 
-        // Wait for DOM
+        // Check if Spline viewer is loaded
+        function checkSplineViewer() {
+          if (customElements.get('spline-viewer')) {
+            console.log('✅ Spline viewer is loaded');
+            return true;
+          } else {
+            console.log('❌ Spline viewer NOT loaded - this is the problem!');
+            return false;
+          }
+        }
+
+        // Wait for Spline viewer to be available
+        function waitForSplineViewer() {
+          return new Promise((resolve, reject) => {
+            if (checkSplineViewer()) {
+              resolve();
+              return;
+            }
+
+            // Wait for custom element to be defined
+            customElements.whenDefined('spline-viewer').then(() => {
+              console.log('✅ Spline viewer now available');
+              resolve();
+            }).catch(reject);
+
+            // Timeout after 10 seconds
+            setTimeout(() => {
+              if (!checkSplineViewer()) {
+                console.error('❌ Spline viewer failed to load after 10 seconds');
+                reject(new Error('Spline viewer timeout'));
+              }
+            }, 10000);
+          });
+        }
+
+        // Initialize only after Spline viewer is ready
+        async function initializeWhenReady() {
+          try {
+            console.log('⏳ Waiting for Spline viewer to load...');
+            await waitForSplineViewer();
+            console.log('🚀 Spline viewer ready, initializing...');
+            initSpline();
+          } catch (error) {
+            console.error('❌ Failed to load Spline viewer:', error);
+            // Show fallback
+            const container = document.querySelector('.spline-container');
+            if (container) {
+              container.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; text-align: center;">
+                  <div>
+                    <h2>3D Content Unavailable</h2>
+                    <p>Spline viewer failed to load</p>
+                  </div>
+                </div>
+              `;
+            }
+          }
+        }
+
+        // Wait for DOM and window load
         console.log('📄 Document state:', document.readyState);
 
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', () => {
             console.log('📄 DOM Content Loaded');
-            setTimeout(initSpline, 100);
+            setTimeout(initializeWhenReady, 100);
           });
         } else {
           console.log('📄 DOM already loaded');
-          setTimeout(initSpline, 100);
+          setTimeout(initializeWhenReady, 100);
         }
 
         // Window load event for safety
         window.addEventListener('load', () => {
           console.log('🪟 Window loaded');
           // Only init if not already done
-          if (!splineViewer) {
+          if (!splineViewer && checkSplineViewer()) {
             initSpline();
           }
         });
@@ -789,16 +849,37 @@
           console.log('Current device:', currentDevice);
           console.log('Init count:', initCount);
 
+          // Check Spline viewer availability
+          const isSplineViewerLoaded = customElements.get('spline-viewer');
+          console.log('Spline viewer loaded:', !!isSplineViewerLoaded);
+
           const viewer = document.querySelector('spline-viewer');
           if (viewer) {
             console.log('Viewer exists:', true);
             console.log('Viewer URL:', viewer.getAttribute('url'));
             console.log('Viewer dimensions:', viewer.offsetWidth, 'x', viewer.offsetHeight);
+            console.log('Viewer innerHTML length:', viewer.innerHTML.length);
+            if (viewer.innerHTML.length > 100) {
+              console.log('⚠️ Viewer showing raw content instead of 3D - this is the problem!');
+            }
           } else {
             console.log('Viewer exists:', false);
           }
 
           getContainerInfo();
+        };
+
+        // Test function to try known working Spline
+        window.testSpline = function() {
+          console.log('🧪 Testing with known working Spline...');
+          const container = document.querySelector('.spline-container');
+          if (container) {
+            container.innerHTML = '';
+            const viewer = document.createElement('spline-viewer');
+            viewer.setAttribute('url', SPLINE_URLS.test);
+            container.appendChild(viewer);
+            console.log('✅ Test Spline loaded');
+          }
         };
 
         console.log('💡 Type debugSpline() in console for current status');
